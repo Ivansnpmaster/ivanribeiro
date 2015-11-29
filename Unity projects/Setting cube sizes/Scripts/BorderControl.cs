@@ -10,10 +10,10 @@ public class BorderControl : MonoBehaviour
     public Transform borderPrefab; // Cube prefab
     public Transform floorMap; // Plane
 
-    private void Start ()
+	private void Start ()
     {
         Generate();
-    }
+	}
 
     public void Generate()
     {
@@ -38,8 +38,7 @@ public class BorderControl : MonoBehaviour
         SetBorder(borderParent.transform, borderPrefab, position, scale, "Right border");
 
         // Left border
-        position = new Vector3(-(maxMapSize.x + mapSize.x) / 4F, 0F, 0F);
-        SetBorder(borderParent.transform, borderPrefab, position, scale, "Left border");
+        SetBorder(borderParent.transform, borderPrefab, -position, scale, "Left border");
 
         // Upper border
         position = new Vector3(0F, 0F, (maxMapSize.y + mapSize.y) / 4F);
@@ -47,8 +46,7 @@ public class BorderControl : MonoBehaviour
         SetBorder(borderParent.transform, borderPrefab, position, scale, "Upper border");
 
         // Bottom border
-        position = new Vector3(0F, 0F, -(maxMapSize.y + mapSize.y) / 4F);
-        SetBorder(borderParent.transform, borderPrefab, position, scale, "Bottom border");
+        SetBorder(borderParent.transform, borderPrefab, -position, scale, "Bottom border");
     }
 
     void SetBorder(Transform parent, Transform prefabBorder, Vector3 position, Vector3 scale, string name)
