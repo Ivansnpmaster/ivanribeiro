@@ -1,0 +1,10 @@
+C:\Users\Ivansnpmaster\Desktop\Diary\Diary\bin\Debug\Diary.exe.config
+C:\Users\Ivansnpmaster\Desktop\Diary\Diary\obj\Debug\Diary.Diary.resources
+C:\Users\Ivansnpmaster\Desktop\Diary\Diary\obj\Debug\Diary.Resources.resources
+C:\Users\Ivansnpmaster\Desktop\Diary\Diary\obj\Debug\Diary.vbproj.GenerateResource.Cache
+C:\Users\Ivansnpmaster\Desktop\Diary\Diary\obj\Debug\Diary.xml
+C:\Users\Ivansnpmaster\Desktop\Diary\Diary\bin\Debug\Diary.exe
+C:\Users\Ivansnpmaster\Desktop\Diary\Diary\bin\Debug\Diary.pdb
+C:\Users\Ivansnpmaster\Desktop\Diary\Diary\bin\Debug\Diary.xml
+C:\Users\Ivansnpmaster\Desktop\Diary\Diary\obj\Debug\Diary.exe
+C:\Users\Ivansnpmaster\Desktop\Diary\Diary\obj\Debug\Diary.pdb
