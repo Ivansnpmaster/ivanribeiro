@@ -10,10 +10,10 @@ public class BorderControl : MonoBehaviour
     public Transform borderPrefab; // Cube prefab
     public Transform floorMap; // Plane
 
-	private void Start ()
+    private void Start ()
     {
         Generate();
-	}
+    }
 
     public void Generate()
     {
