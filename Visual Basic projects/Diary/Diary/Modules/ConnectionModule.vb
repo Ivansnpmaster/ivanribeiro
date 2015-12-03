@@ -10,23 +10,64 @@ Module ConnectionModule
         Return New MySqlConnection(stringMySQLConnection)
     End Function
 
-    Public Function InsertToMySQL(ByVal tableToInsert As String, ByVal columns() As String)
+    ' Need some tests
+    Public Function InsertToMySQL(ByVal tableToInsert As String, ByVal bankColumns() As String, ByVal itemsToInsert() As Object)
 
-        Dim insertString As String = ""
+        Dim insertString As String = "INSER INTO " + tableToInsert + " ("
+        Dim shift2(bankColumns.Length - 1) As String
 
+        For i As Integer = 0 To bankColumns.Length - 2 Step 1
+            If Not IsLastElement(bankColumns(i), bankColumns) Then
+                insertString += bankColumns(i) + ", "
+            Else
+                insertString += bankColumns(i) + ") VALUES ("
+            End If
 
+            shift2(i) = "@" + bankColumns(i)
+        Next
 
-        Return insertString
+        For j As Integer = 0 To shift2.Length - 2 Step 1
+            If Not IsLastElement(shift2(j), shift2) Then
+                insertString += shift2(j) + ", "
+            Else
+                insertString += shift2(j) + ")"
+            End If
+        Next
+
+        Using con As MySqlConnection = MySQLConnection()
+            Try
+                con.Open()
+
+                Dim cmd As MySqlCommand = New MySqlCommand(insertString, con)
+
+                For i As Integer = 0 To itemsToInsert.Length - 2 Step 1
+                    cmd.Parameters.AddWithValue(shift2(i), itemsToInsert(i))
+                Next
+
+                cmd.ExecuteNonQuery()
+                con.Close()
+
+                Return True
+
+            Catch ex As Exception
+                MessageBox.Show(ex.Message)
+            Finally
+                con.Close()
+            End Try
+        End Using
+
+        Return False
 
     End Function
 
+    ' Also need some tests
     Public Function CheckExistence(ByVal tableToCheck As String,
                                    ByVal bankColumns() As String,
                                    ByVal itemsToCheck() As String)
 
         Dim sql As String = "SELECT "
 
-        For i As Integer = 0 To bankColumns.Length - 2
+        For i As Integer = 0 To bankColumns.Length - 2 Step 1
             If Not IsLastElement(bankColumns(i), bankColumns) Then
                 sql += bankColumns(i) + ", "
             Else
@@ -36,7 +77,7 @@ Module ConnectionModule
 
         sql += "FROM " + tableToCheck + " WHERE "
 
-        For i As Integer = 0 To itemsToCheck.Length - 2
+        For i As Integer = 0 To itemsToCheck.Length - 2 Step 1
             If Not IsLastElement(itemsToCheck(i), itemsToCheck) Then
                 sql += bankColumns(i) + "='" + itemsToCheck(i) + "' AND "
             Else

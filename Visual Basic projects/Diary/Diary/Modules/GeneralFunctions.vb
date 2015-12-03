@@ -1,4 +1,4 @@
-﻿Module General_functions
+﻿Module GeneralFunctions
 
     Public programName As String = "Diary"
 
@@ -20,7 +20,7 @@
     End Function
 
     Public Function IsLastElement(ByVal current As String, ByVal array() As String)
-        If (current = array(array.Length - 1)) Then
+        If (current = array(array.Length - 2)) Then
             Return True
         End If
         Return False
