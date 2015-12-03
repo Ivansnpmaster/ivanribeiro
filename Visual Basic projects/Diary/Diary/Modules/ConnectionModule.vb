@@ -61,9 +61,7 @@ Module ConnectionModule
     End Function
 
     ' Also need some tests
-    Public Function CheckExistence(ByVal tableToCheck As String,
-                                   ByVal bankColumns() As String,
-                                   ByVal itemsToCheck() As String)
+    Public Function CheckExistence(ByVal tableToCheck As String, ByVal bankColumns() As String, ByVal itemsToCheck() As String)
 
         Dim sql As String = "SELECT "
 
