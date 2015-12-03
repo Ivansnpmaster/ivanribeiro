@@ -50,7 +50,7 @@ Module ConnectionModule
                 Return True
 
             Catch ex As Exception
-                MessageBox.Show(ex.Message)
+                MessageBox.Show("Error: " & ex.Message, programName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Finally
                 con.Close()
             End Try
