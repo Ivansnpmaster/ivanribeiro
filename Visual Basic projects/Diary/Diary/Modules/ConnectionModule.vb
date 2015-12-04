@@ -14,9 +14,9 @@ Module ConnectionModule
     Public Function InsertToMySQL(ByVal tableToInsert As String, ByVal bankColumns() As String, ByVal itemsToInsert() As Object)
 
         Dim insertString As String = "INSER INTO " + tableToInsert + " ("
-        Dim shift2(bankColumns.Length - 1) As String
+        Dim shift2(bankColumns.Length) As String
 
-        For i As Integer = 0 To bankColumns.Length - 2 Step 1
+        For i As Integer = 0 To bankColumns.Length - 1 Step 1
             If Not IsLastElement(bankColumns(i), bankColumns) Then
                 insertString += bankColumns(i) + ", "
             Else
@@ -26,7 +26,7 @@ Module ConnectionModule
             shift2(i) = "@" + bankColumns(i)
         Next
 
-        For j As Integer = 0 To shift2.Length - 2 Step 1
+        For j As Integer = 0 To shift2.Length - 1 Step 1
             If Not IsLastElement(shift2(j), shift2) Then
                 insertString += shift2(j) + ", "
             Else
@@ -40,7 +40,7 @@ Module ConnectionModule
 
                 Dim cmd As MySqlCommand = New MySqlCommand(insertString, con)
 
-                For i As Integer = 0 To itemsToInsert.Length - 2 Step 1
+                For i As Integer = 0 To itemsToInsert.Length - 1 Step 1
                     cmd.Parameters.AddWithValue(shift2(i), itemsToInsert(i))
                 Next
 
@@ -50,7 +50,7 @@ Module ConnectionModule
                 Return True
 
             Catch ex As Exception
-                MessageBox.Show("Error: " & ex.Message, programName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show("Error: " & ex.Message + vbNewLine + insertString, programName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Finally
                 con.Close()
             End Try
@@ -65,7 +65,7 @@ Module ConnectionModule
 
         Dim sql As String = "SELECT "
 
-        For i As Integer = 0 To bankColumns.Length - 2 Step 1
+        For i As Integer = 0 To bankColumns.Length - 1 Step 1
             If Not IsLastElement(bankColumns(i), bankColumns) Then
                 sql += bankColumns(i) + ", "
             Else
@@ -75,7 +75,7 @@ Module ConnectionModule
 
         sql += "FROM " + tableToCheck + " WHERE "
 
-        For i As Integer = 0 To itemsToCheck.Length - 2 Step 1
+        For i As Integer = 0 To itemsToCheck.Length - 1 Step 1
             If Not IsLastElement(itemsToCheck(i), itemsToCheck) Then
                 sql += bankColumns(i) + "='" + itemsToCheck(i) + "' AND "
             Else

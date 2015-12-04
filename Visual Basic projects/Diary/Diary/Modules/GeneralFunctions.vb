@@ -20,22 +20,20 @@
     End Function
 
     Public Function IsLastElement(ByVal current As String, ByVal array() As String)
-        If (current = array(array.Length - 2)) Then
+        If (current = array(array.Length - 1)) Then
             Return True
         End If
         Return False
     End Function
 
     Public Function ConvertToMySQLDataFormat(ByVal dateToFormat As String)
-        Dim day, month, year As String
+        'Dim day, month, year As String
+        'day = dateToFormat.Substring(0, 2)
+        'month = dateToFormat.Substring(3, 2)
+        'year = dateToFormat.Substring(6, 4)
+        'dateToFormat = year & "-" & month & "-" & day
 
-        day = dateToFormat.Substring(0, 2)
-        month = dateToFormat.Substring(3, 2)
-        year = dateToFormat.Substring(6, 4)
-
-        dateToFormat = year & "-" & month & "-" & day
-
-        Return dateToFormat
+        Return Convert.ToDateTime(dateToFormat).ToString("yyyy-MM-dd")
     End Function
 
 End Module

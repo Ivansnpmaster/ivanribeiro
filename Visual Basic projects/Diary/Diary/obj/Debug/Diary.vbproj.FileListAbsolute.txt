@@ -19,3 +19,4 @@ C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Diary\Diary\obj
 C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Diary\Diary\obj\Debug\Diary.Resources.resources
 C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Diary\Diary\obj\Debug\Diary.vbproj.GenerateResource.Cache
 C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Diary\Diary\bin\Debug\MySql.Data.DLL
+C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Diary\Diary\obj\Debug\Diary.vbprojResolveAssemblyReference.cache
