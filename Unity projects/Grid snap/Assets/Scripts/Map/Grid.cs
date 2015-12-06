@@ -80,7 +80,6 @@ public class Grid : MonoBehaviour
 					neighbors.Add(grid[checkX, checkY]);
 			}
 		}
-		
 		return neighbors;
 	}
 
@@ -93,15 +92,13 @@ public class Grid : MonoBehaviour
 				for (int z = 0; z < mapSizeX; z ++)
 				{
 					if (nodes[i].x == grid[x, z].x && nodes[i].z == grid[x, z].z)
-					{
 						grid[x, z].isOccuped = false;
-					}
-                }
-            }
-        }
-    }
+                		}
+            		}
+        	}
+    	}
     
-    private void OnDrawGizmos()
+	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireCube(Vector3.zero, new Vector3(mapSizeX, 1F, mapSizeX));
@@ -109,12 +106,12 @@ public class Grid : MonoBehaviour
 		for (int x = 0; x < mapSizeX; x ++)
 		{
 			for (int z = 0; z < mapSizeY; z ++)
-            {
+            		{
 				if (grid[x, z].isOccuped) Gizmos.color = Color.yellow;
 				else Gizmos.color = Color.gray;
 
 				Gizmos.DrawCube(GetPointFromNode(x, z), Vector3.one * (radius * 2F - .1F));
-            }
-        }
+            		}
+        	}
 	}
 }
