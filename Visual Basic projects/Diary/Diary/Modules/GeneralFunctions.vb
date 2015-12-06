@@ -33,7 +33,9 @@
         'year = dateToFormat.Substring(6, 4)
         'dateToFormat = year & "-" & month & "-" & day
 
-        Return Convert.ToDateTime(dateToFormat).ToString("yyyy-MM-dd")
+        'Return Convert.ToDateTime(dateToFormat).ToString("yyyy-MM-dd")
+        MessageBox.Show(CDate(dateToFormat))
+        Return CDate(dateToFormat)
     End Function
 
 End Module

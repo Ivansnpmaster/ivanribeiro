@@ -18,9 +18,7 @@
             Return
         End If
 
-        'Dim dateToRecord As Date = ConvertToMySQLDataFormat(dtpDayNewDay.Text.Trim)
-
-        Dim dt As Date = ConvertToMySQLDataFormat(dtpDayNewDay.Text.Trim)
+        Dim dt As Date = CDate(dtpDayNewDay.Text.Trim)
 
         Dim bankColumns(1) As String
         bankColumns(0) = "date"
@@ -34,7 +32,6 @@
 
         For i As Integer = 0 To items.Length - 1 Step 1
             srtItems(i) = Convert.ToString(items(i))
-            MessageBox.Show(srtItems(i))
         Next
 
         Dim exists As Boolean = CheckExistence("diary", bankColumns, srtItems)

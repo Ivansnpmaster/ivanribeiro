@@ -14,7 +14,7 @@ Module ConnectionModule
     Public Function InsertToMySQL(ByVal tableToInsert As String, ByVal bankColumns() As String, ByVal itemsToInsert() As Object)
 
         Dim insertString As String = "INSER INTO " + tableToInsert + " ("
-        Dim shift2(bankColumns.Length) As String
+        Dim shift2(bankColumns.Length - 1) As String
 
         For i As Integer = 0 To bankColumns.Length - 1 Step 1
             If Not IsLastElement(bankColumns(i), bankColumns) Then
@@ -37,11 +37,10 @@ Module ConnectionModule
         Using con As MySqlConnection = MySQLConnection()
             Try
                 con.Open()
-
                 Dim cmd As MySqlCommand = New MySqlCommand(insertString, con)
 
                 For i As Integer = 0 To itemsToInsert.Length - 1 Step 1
-                    cmd.Parameters.AddWithValue(shift2(i), itemsToInsert(i))
+                    cmd.Parameters.Add(New MySqlParameter(shift2(i), itemsToInsert(i)))
                 Next
 
                 cmd.ExecuteNonQuery()
