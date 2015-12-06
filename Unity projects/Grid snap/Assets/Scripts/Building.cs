@@ -79,7 +79,7 @@ public class Building : MonoBehaviour
 			currentNode = node;
 
 			for (int i = 0; i < neighbors.Count; i ++)
-            {
+            		{
 				for (int x = 0; x < Grid.Instance.mapSizeX; x ++)
 				{
 					for (int z = 0; z < Grid.Instance.mapSizeX; z ++)
@@ -100,7 +100,7 @@ public class Building : MonoBehaviour
 				{
 					if (neighbors.Contains(Grid.Instance.grid[x, z]))
 						Grid.Instance.grid[x, z].isOccuped = true;
-                }
+                		}
 			}
 		}
 	}
