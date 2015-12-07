@@ -100,7 +100,7 @@ public class Building : MonoBehaviour
 				{
 					if (neighbors.Contains(Grid.Instance.grid[x, z]))
 						Grid.Instance.grid[x, z].isOccuped = true;
-                		}
+                }
 			}
 		}
 	}
