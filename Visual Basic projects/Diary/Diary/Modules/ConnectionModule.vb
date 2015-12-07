@@ -13,7 +13,7 @@ Module ConnectionModule
     ' Need some tests
     Public Function InsertToMySQL(ByVal tableToInsert As String, ByVal bankColumns() As String, ByVal itemsToInsert() As Object)
 
-        Dim insertString As String = "INSER INTO " + tableToInsert + " ("
+        Dim insertString As String = "INSERT INTO " + tableToInsert + " ("
         Dim shift2(bankColumns.Length - 1) As String
 
         For i As Integer = 0 To bankColumns.Length - 1 Step 1
@@ -46,6 +46,7 @@ Module ConnectionModule
                 cmd.ExecuteNonQuery()
                 con.Close()
 
+                MessageBox.Show("Gravado com sucesso!", programName, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return True
 
             Catch ex As Exception
@@ -59,8 +60,73 @@ Module ConnectionModule
 
     End Function
 
-    ' Also need some tests
-    Public Function CheckExistence(ByVal tableToCheck As String, ByVal bankColumns() As String, ByVal itemsToCheck() As String)
+    Public Function UpdateMySQL(ByVal tableToUpdate As String, ByVal bankColumns() As String, ByVal itemsToUpdate() As Object, ByVal whereBankColumns() As String, ByVal whereItems() As Object)
+
+        Dim updateString As String = "UPDATE " + tableToUpdate + " SET "
+
+        Dim shift2((bankColumns.Length - 1) + (whereBankColumns.Length - 1)) As String
+
+        For i As Integer = 0 To bankColumns.Length - 1 Step 1
+
+            shift2(i) = "@" + bankColumns(i)
+
+            If Not IsLastElement(bankColumns(i), bankColumns) Then
+                updateString += bankColumns(i) + " ="
+                updateString += shift2(i) + ", "
+            Else
+                updateString += bankColumns(i) + " ="
+                updateString += shift2(i) + " WHERE "
+            End If
+        Next
+
+        For j As Integer = 0 To whereBankColumns.Length - 1 Step 1
+
+            shift2(j + bankColumns.Length - 1) = "@" + whereBankColumns(j)
+
+            If Not IsLastElement(whereBankColumns(j), whereBankColumns) Then
+                updateString += whereBankColumns(j) + " = "
+                updateString += shift2(j + bankColumns.Length - 1) + ", AND "
+            Else
+                updateString += whereBankColumns(j) + " = "
+                updateString += shift2(j + bankColumns.Length - 1)
+            End If
+        Next
+
+        MessageBox.Show(updateString)
+
+        Using con As MySqlConnection = MySQLConnection()
+            Try
+                con.Open()
+
+                Dim dr As MySqlDataReader
+                Dim cmd As New MySqlCommand(updateString, con)
+
+                For i As Integer = 0 To itemsToUpdate.Length - 1 Step 1
+                    cmd.Parameters.Add(New MySqlParameter(shift2(i), itemsToUpdate(i)))
+                Next
+
+                For j As Integer = bankColumns.Length - 1 To shift2.Length - 1 Step 1
+                    cmd.Parameters.Add(New MySqlParameter(shift2(j), whereItems(j - bankColumns.Length - 1)))
+                Next
+
+                dr = cmd.ExecuteReader()
+                dr.Close()
+                con.Close()
+
+                MessageBox.Show("Informations updated!", programName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return True
+
+            Catch ex As Exception
+                MessageBox.Show("Error!" + ex.Message + vbNewLine + updateString, programName, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                con.Close()
+            End Try
+        End Using
+
+        Return False
+    End Function
+
+    Public Function CheckExistence(ByVal tableToCheck As String, ByVal bankColumns() As Object, ByVal itemsToCheck() As Object)
 
         Dim sql As String = "SELECT "
 
@@ -106,7 +172,6 @@ Module ConnectionModule
 
             Return False
         End Using
-
     End Function
 
 End Module

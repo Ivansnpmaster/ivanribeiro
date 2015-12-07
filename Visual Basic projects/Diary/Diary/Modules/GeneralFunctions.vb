@@ -19,23 +19,11 @@
         Return newFont
     End Function
 
-    Public Function IsLastElement(ByVal current As String, ByVal array() As String)
+    Public Function IsLastElement(ByVal current As Object, ByVal array() As Object)
         If (current = array(array.Length - 1)) Then
             Return True
         End If
         Return False
-    End Function
-
-    Public Function ConvertToMySQLDataFormat(ByVal dateToFormat As String)
-        'Dim day, month, year As String
-        'day = dateToFormat.Substring(0, 2)
-        'month = dateToFormat.Substring(3, 2)
-        'year = dateToFormat.Substring(6, 4)
-        'dateToFormat = year & "-" & month & "-" & day
-
-        'Return Convert.ToDateTime(dateToFormat).ToString("yyyy-MM-dd")
-        MessageBox.Show(CDate(dateToFormat))
-        Return CDate(dateToFormat)
     End Function
 
 End Module

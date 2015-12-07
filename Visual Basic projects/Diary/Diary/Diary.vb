@@ -1,10 +1,5 @@
 ﻿Public Class Diary
 
-    Private Sub Diary_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-
-    End Sub
-
     Private Sub btnRecordNewDay_Click(sender As Object, e As EventArgs) Handles btnRecordNewDay.Click
 
         If (dtpDayNewDay.Text.Trim = "") Then
@@ -18,6 +13,8 @@
             Return
         End If
 
+        '---------- Insert variables
+
         Dim dt As Date = CDate(dtpDayNewDay.Text.Trim)
 
         Dim bankColumns(1) As String
@@ -28,22 +25,29 @@
         items(0) = dt
         items(1) = txtContentNewDay.Text.Trim
 
-        Dim srtItems(1) As String
+        '---------- Check existance variables
 
-        For i As Integer = 0 To items.Length - 1 Step 1
-            srtItems(i) = Convert.ToString(items(i))
-        Next
+        Dim srtBankCheck(0) As String
+        srtBankCheck(0) = "date"
 
-        Dim exists As Boolean = CheckExistence("diary", bankColumns, srtItems)
+        Dim srtItems(0) As Object
+        srtItems(0) = dt.ToString("yyyy-MM-dd")
+
+        '---------- Function
+
+        Dim exists As Boolean = CheckExistence("diary", srtBankCheck, srtItems)
 
         If (exists = False) Then
             InsertToMySQL("diary", bankColumns, items)
         Else
             If (MessageBox.Show("We found a record of this day, are you sure you want to overwrite it ?", programName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = System.Windows.Forms.DialogResult.Yes) Then
-                ' Update function
+
+                Dim strBankWhereStatement(0) As String
+                strBankWhereStatement(0) = "date"
+
+                UpdateMySQL("diary", bankColumns, items, strBankWhereStatement, srtItems)
             End If
         End If
-
     End Sub
 
 End Class
