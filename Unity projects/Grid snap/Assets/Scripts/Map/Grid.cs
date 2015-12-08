@@ -5,18 +5,14 @@ public class Grid : MonoBehaviour
 {
     public static Grid Instance;
 
-    [HideInInspector]
-    public Vector2 mapSize;
+    [HideInInspector] public Node[,] grid;
+    [HideInInspector] public Vector2 mapSize;
+    [HideInInspector] public float diameter;
+    [HideInInspector] public float radius = .5F;
+    [HideInInspector] public int mapSizeX, mapSizeZ;
 
     public LayerMask occupedLayers;
     public Transform floor; // Quad
-    public float diameter;
-    public float radius = .5F;
-
-    [HideInInspector]
-    public Node[,] grid;
-
-    public int mapSizeX, mapSizeZ;
 
     private void Awake()
     {
@@ -56,19 +52,8 @@ public class Grid : MonoBehaviour
         float percentX = (point.x + mapSize.x / 2F) / mapSize.x;
         float percentY = (point.z + mapSize.y / 2F) / mapSize.y;
 
-        int x = Mathf.RoundToInt((mapSizeX - 1) * percentX);
-        int z = Mathf.RoundToInt((mapSizeZ - 1) * percentY);
-
-        return grid[x, z];
-    }
-
-    public Node GetNodeFromPoint(Vector2 point)
-    {
-        float percentX = (point.x + mapSize.x / 2F) / mapSize.x;
-        float percentY = (point.y + mapSize.y / 2F) / mapSize.y;
-
-        int x = Mathf.RoundToInt((mapSizeX - 1) * percentX);
-        int z = Mathf.RoundToInt((mapSizeZ - 1) * percentY);
+        int x = Mathf.RoundToInt((mapSizeX - 1F) * percentX);
+        int z = Mathf.RoundToInt((mapSizeZ - 1F) * percentY);
 
         return grid[x, z];
     }
@@ -77,10 +62,10 @@ public class Grid : MonoBehaviour
     {
         List<Node> neighbors = new List<Node>();
 
-        int initialX = Mathf.RoundToInt((node.x - boundX / 2) + radius);
-        int finalX = Mathf.RoundToInt((node.x + boundX / 2) + radius);
-        int initialZ = Mathf.RoundToInt((node.z - boundZ / 2) + radius);
-        int finalZ = Mathf.RoundToInt((node.z + boundZ / 2) + radius);
+        int initialX = Mathf.RoundToInt((node.x - boundX / 2F) + radius);
+        int finalX = Mathf.RoundToInt((node.x + boundX / 2F) + radius);
+        int initialZ = Mathf.RoundToInt((node.z - boundZ / 2F) + radius);
+        int finalZ = Mathf.RoundToInt((node.z + boundZ / 2F) + radius);
 
         for (int x = initialX; x <= finalX; x++)
         {
@@ -91,21 +76,6 @@ public class Grid : MonoBehaviour
             }
         }
         return neighbors;
-    }
-
-    public void SetOcuppancy(List<Node> nodes)
-    {
-        for (int i = 0; i < nodes.Count; i++)
-        {
-            for (int x = 0; x < mapSizeX; x++)
-            {
-                for (int z = 0; z < mapSizeX; z++)
-                {
-                    if (nodes[i].x == grid[x, z].x && nodes[i].z == grid[x, z].z)
-                        grid[x, z].isOccuped = false;
-                }
-            }
-        }
     }
 
     public void SetTileOcuppancy(int x, int z, bool ocuppancy)

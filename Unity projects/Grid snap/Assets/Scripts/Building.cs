@@ -10,14 +10,16 @@ public class Building : MonoBehaviour
     [HideInInspector]
     public Node currentNode;
 
+    public Transform graphics;
+
     float colliderBoundX;
     float colliderBoundZ;
 
     private void Awake()
     {
         boxCollider = GetComponentInChildren<BoxCollider>();
-        colliderBoundX = boxCollider.size.x;
-        colliderBoundZ = boxCollider.size.z;
+        colliderBoundX = graphics.localScale.x;
+        colliderBoundZ = graphics.localScale.z;
     }
 
     private void OnEnable()
