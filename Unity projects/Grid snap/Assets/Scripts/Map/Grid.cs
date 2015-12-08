@@ -16,7 +16,7 @@ public class Grid : MonoBehaviour
     [HideInInspector]
     public Node[,] grid;
 
-    public int mapSizeX, mapSizeY;
+    public int mapSizeX, mapSizeZ;
 
     private void Awake()
     {
@@ -27,14 +27,14 @@ public class Grid : MonoBehaviour
         mapSize.y = floor.localScale.y;
 
         mapSizeX = Mathf.RoundToInt(mapSize.x / diameter);
-        mapSizeY = Mathf.RoundToInt(mapSize.y / diameter);
+        mapSizeZ = Mathf.RoundToInt(mapSize.y / diameter);
 
         GenerateGrid();
     }
 
     public void GenerateGrid()
     {
-        grid = new Node[mapSizeX, mapSizeY];
+        grid = new Node[mapSizeX, mapSizeZ];
 
         for (int x = 0; x < mapSizeX; x++)
         {
@@ -48,7 +48,7 @@ public class Grid : MonoBehaviour
 
     public Vector3 GetPointFromNode(int x, int z)
     {
-        return new Vector3(-mapSizeX / 2F + x + radius, 0F, -mapSizeY / 2F + z + radius);
+        return new Vector3(-mapSizeX / 2F + x + radius, 0F, -mapSizeZ / 2F + z + radius);
     }
 
     public Node GetNodeFromPoint(Vector3 point)
@@ -57,7 +57,18 @@ public class Grid : MonoBehaviour
         float percentY = (point.z + mapSize.y / 2F) / mapSize.y;
 
         int x = Mathf.RoundToInt((mapSizeX - 1) * percentX);
-        int z = Mathf.RoundToInt((mapSizeY - 1) * percentY);
+        int z = Mathf.RoundToInt((mapSizeZ - 1) * percentY);
+
+        return grid[x, z];
+    }
+
+    public Node GetNodeFromPoint(Vector2 point)
+    {
+        float percentX = (point.x + mapSize.x / 2F) / mapSize.x;
+        float percentY = (point.y + mapSize.y / 2F) / mapSize.y;
+
+        int x = Mathf.RoundToInt((mapSizeX - 1) * percentX);
+        int z = Mathf.RoundToInt((mapSizeZ - 1) * percentY);
 
         return grid[x, z];
     }
@@ -66,20 +77,17 @@ public class Grid : MonoBehaviour
     {
         List<Node> neighbors = new List<Node>();
 
-        int initialX = Mathf.RoundToInt((node.x - boundX / 2));
-        int finalX = Mathf.RoundToInt((node.x + boundX / 2));
-        int initialZ = Mathf.RoundToInt((node.z - boundZ / 2));
-        int finalZ = Mathf.RoundToInt((node.z + boundZ / 2));
+        int initialX = Mathf.RoundToInt((node.x - boundX / 2) + radius);
+        int finalX = Mathf.RoundToInt((node.x + boundX / 2) + radius);
+        int initialZ = Mathf.RoundToInt((node.z - boundZ / 2) + radius);
+        int finalZ = Mathf.RoundToInt((node.z + boundZ / 2) + radius);
 
         for (int x = initialX; x <= finalX; x++)
         {
-            for (int y = initialZ; y <= finalZ; y++)
+            for (int z = initialZ; z <= finalZ; z++)
             {
-                int checkX = node.x + x;
-                int checkY = node.z + y;
-
-                if (checkX >= 0 && checkX < mapSizeX && checkY >= 0 && checkY < mapSizeY)
-                    neighbors.Add(grid[checkX, checkY]);
+                if (x >= 0 && x < mapSizeX && z >= 0 && z < mapSizeZ)
+                    neighbors.Add(grid[x, z]);
             }
         }
         return neighbors;
@@ -100,6 +108,11 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public void SetTileOcuppancy(int x, int z, bool ocuppancy)
+    {
+        grid[x, z].isOccuped = ocuppancy;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -107,7 +120,7 @@ public class Grid : MonoBehaviour
 
         for (int x = 0; x < mapSizeX; x++)
         {
-            for (int z = 0; z < mapSizeY; z++)
+            for (int z = 0; z < mapSizeZ; z++)
             {
                 if (grid[x, z].isOccuped) Gizmos.color = Color.yellow;
                 else Gizmos.color = Color.gray;

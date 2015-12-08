@@ -14,33 +14,59 @@ public class Player : MonoBehaviour
     {
         Instance = this;
         playerController = GetComponent<PlayerController>();
+
+        mouseNode = new Node();
     }
 
     public Building PCurrentBuilding
     {
         get { return playerController.CurrentBuilding; }
-        set { playerController.CurrentBuilding = value; }
+        set
+        {
+            playerController.CurrentBuilding = value;
+        }
     }
 
-    private void Update()
+    Node mouseNode;
+    Node currentMouseNode;
+
+    RaycastHit hit;
+    Ray ray;
+
+    private void FixedUpdate()
     {
-        if (PCurrentBuilding != null)
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        currentMouseNode = new Node();
+
+        if (Physics.Raycast(ray, out hit, float.MaxValue, playerController.floorLayer))
         {
-            if (currentAction == Action.MovingBuild)
+            currentMouseNode = Grid.Instance.GetNodeFromPoint(hit.point);
+
+            if (currentMouseNode.x != mouseNode.x || currentMouseNode.z != mouseNode.z)
             {
-                if (Input.GetKeyDown(KeyCode.Escape))
+                mouseNode = currentMouseNode;
+
+                if (currentAction == Action.MovingBuild)
                 {
-                    PCurrentBuilding = null;
+                    if (Input.GetKeyDown(KeyCode.Escape))
+                    {
+                        currentAction = Action.None;
+                        PCurrentBuilding = null;
+                        return;
+                    }
+
+                    playerController.BuildSelected(currentMouseNode, hit);
+                }
+            }
+
+            // If clicks to set the building
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (currentAction == Action.MovingBuild)
+                {
+                    playerController.SetPosition(hit);
                     return;
                 }
-
-                if (Input.GetMouseButtonDown(0))
-                {
-                    playerController.SetPosition();
-                    return;
-                }
-
-                playerController.BuildSelected();
             }
         }
     }

@@ -6,7 +6,7 @@ public class MainCamera : MonoBehaviour
     public Grid grid;
     public float distanceToZero;
 
-    void Start()
+    void Awake()
     {
         GameObject angleReference = new GameObject("Angle reference");
         angleReference.transform.rotation = Quaternion.Euler(-45F, 225F, -45F);

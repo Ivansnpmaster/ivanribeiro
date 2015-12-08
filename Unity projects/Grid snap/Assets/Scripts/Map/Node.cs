@@ -12,4 +12,11 @@ public class Node
         z = _z;
         isOccuped = _isOccuped;
     }
+
+    public Node()
+    {
+        x = 0;
+        z = 0;
+        isOccuped = false;
+    }
 }

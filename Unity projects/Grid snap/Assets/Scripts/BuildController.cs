@@ -13,5 +13,6 @@ public class BuildController : MonoBehaviour
         Building b = Instantiate(buildings[index], Vector3.zero, buildings[index].transform.rotation) as Building;
         b.currentNode = Grid.Instance.GetNodeFromPoint(Vector3.zero);
         b.transform.parent = buildingsHolder;
+        Player.Instance.PCurrentBuilding = b;
     }
 }

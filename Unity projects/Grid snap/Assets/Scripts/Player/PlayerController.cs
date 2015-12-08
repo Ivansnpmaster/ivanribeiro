@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
         get { return currentBuilding; }
         set
         {
+            if (value == null && Player.Instance.currentAction == Action.None)
+                Destroy(currentBuilding.gameObject);
+
             currentBuilding = value;
 
             if (currentBuilding != null) Player.Instance.currentAction = Action.MovingBuild;
@@ -24,21 +27,14 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    public void SetPosition()
+    public void SetPosition(RaycastHit hit)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, float.MaxValue, floorLayer))
-            currentBuilding.SetPosition(hit.point);
+        currentBuilding.SetPosition(hit.point);
     }
 
-    public void BuildSelected()
+    public void BuildSelected(Node mouseNode, RaycastHit hit)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, float.MaxValue, floorLayer))
+        if (mouseNode.x != currentBuilding.currentNode.x && mouseNode.z != currentBuilding.currentNode.z)
             currentBuilding.MoveBuilding(hit.point);
     }
 }
