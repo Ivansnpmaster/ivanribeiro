@@ -1,0 +1,10 @@
+C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Formatting CPF in DatagridView\Formatting CPF in DatagridView\bin\Debug\Formatting CPF in DatagridView.exe.config
+C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Formatting CPF in DatagridView\Formatting CPF in DatagridView\bin\Debug\Formatting CPF in DatagridView.exe
+C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Formatting CPF in DatagridView\Formatting CPF in DatagridView\bin\Debug\Formatting CPF in DatagridView.pdb
+C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Formatting CPF in DatagridView\Formatting CPF in DatagridView\bin\Debug\Formatting CPF in DatagridView.xml
+C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Formatting CPF in DatagridView\Formatting CPF in DatagridView\obj\Debug\Formatting_CPF_in_DatagridView.Form_FormattingCPF.resources
+C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Formatting CPF in DatagridView\Formatting CPF in DatagridView\obj\Debug\Formatting_CPF_in_DatagridView.Resources.resources
+C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Formatting CPF in DatagridView\Formatting CPF in DatagridView\obj\Debug\Formatting CPF in DatagridView.vbproj.GenerateResource.Cache
+C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Formatting CPF in DatagridView\Formatting CPF in DatagridView\obj\Debug\Formatting CPF in DatagridView.exe
+C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Formatting CPF in DatagridView\Formatting CPF in DatagridView\obj\Debug\Formatting CPF in DatagridView.xml
+C:\Users\Ivansnpmaster\Desktop\ivanribeiro\Visual Basic projects\Formatting CPF in DatagridView\Formatting CPF in DatagridView\obj\Debug\Formatting CPF in DatagridView.pdb
