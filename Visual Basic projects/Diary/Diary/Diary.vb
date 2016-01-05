@@ -1,4 +1,6 @@
-﻿Public Class Diary
+﻿Imports MySql.Data.MySqlClient
+
+Public Class Diary
 
     Private Sub btnRecordNewDay_Click(sender As Object, e As EventArgs) Handles btnRecordNewDay.Click
 
@@ -37,7 +39,7 @@
 
         Dim exists As Boolean = CheckExistence("diary", srtBankCheck, srtItems)
 
-        If (exists = False) Then
+        If Not (exists) Then
             InsertToMySQL("diary", bankColumns, items)
         Else
             If (MessageBox.Show("We found a record of this day, are you sure you want to overwrite it ?", programName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = System.Windows.Forms.DialogResult.Yes) Then
@@ -45,9 +47,33 @@
                 Dim strBankWhereStatement(0) As String
                 strBankWhereStatement(0) = "date"
 
-                UpdateMySQL("diary", bankColumns, items, strBankWhereStatement, srtItems)
+                UpdateToMySQL("diary", bankColumns, items, strBankWhereStatement, srtItems)
             End If
         End If
+    End Sub
+
+    Private Sub dtpDayNewDay_ValueChanged(sender As Object, e As EventArgs) Handles dtpDayNewDay.ValueChanged
+        ' Select items from bank
+
+        Dim dt As Date = CDate(dtpDayNewDay.Text.Trim)
+
+        Dim bankColumns(0) As String
+        bankColumns(0) = "content"
+
+        Dim whereBankColumns(0) As String
+        whereBankColumns(0) = "date"
+
+        Dim whereItems(0) As Object
+        whereItems(0) = dt.ToString("yyyy-MM-dd")
+
+        Dim dr As DataTable = SelectMySQL(bankColumns, "diary", whereBankColumns, whereItems)
+
+        If dr.Rows.Count > 0 Then
+            txtContentNewDay.Text = dr.Rows(0).Item("content").ToString
+        Else
+            txtContentNewDay.Clear()
+        End If
+
     End Sub
 
 End Class

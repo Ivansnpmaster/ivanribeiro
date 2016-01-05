@@ -10,7 +10,14 @@ Module ConnectionModule
         Return New MySqlConnection(stringMySQLConnection)
     End Function
 
-    ' Need some tests
+    ''' <summary>
+    ''' Insert to MySQL database
+    ''' </summary>
+    ''' <param name="tableToInsert">Table name</param>
+    ''' <param name="bankColumns">String array of bank columns name</param>
+    ''' <param name="itemsToInsert">Object array containing items to insert</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function InsertToMySQL(ByVal tableToInsert As String, ByVal bankColumns() As String, ByVal itemsToInsert() As Object)
 
         Dim insertString As String = "INSERT INTO " + tableToInsert + " ("
@@ -60,39 +67,47 @@ Module ConnectionModule
 
     End Function
 
-    Public Function UpdateMySQL(ByVal tableToUpdate As String, ByVal bankColumns() As String, ByVal itemsToUpdate() As Object, ByVal whereBankColumns() As String, ByVal whereItems() As Object)
+    ''' <summary>
+    ''' Update MySQL database with where statements
+    ''' </summary>
+    ''' <param name="tableToUpdate">Table name</param>
+    ''' <param name="bankColumns">String array of bank columns name</param>
+    ''' <param name="itemsToUpdate">Object array containing items to update</param>
+    ''' <param name="whereBankColumns">Where bank columns name </param>
+    ''' <param name="whereItems">Object array with where items to update</param>
+    ''' <returns>If updated successfully, returns <c>True</c>, otherwise, <c>False</c></returns>
+    ''' <remarks>Be sure to use this only when you know there's something to update</remarks>
+    Public Function UpdateToMySQL(ByVal tableToUpdate As String, ByVal bankColumns() As String, ByVal itemsToUpdate() As Object, ByVal whereBankColumns() As String, ByVal whereItems() As Object)
 
         Dim updateString As String = "UPDATE " + tableToUpdate + " SET "
 
-        Dim shift2((bankColumns.Length - 1) + (whereBankColumns.Length - 1)) As String
+        Dim shift2((bankColumns.Length + whereBankColumns.Length) - 1) As String
 
         For i As Integer = 0 To bankColumns.Length - 1 Step 1
 
             shift2(i) = "@" + bankColumns(i)
 
             If Not IsLastElement(bankColumns(i), bankColumns) Then
-                updateString += bankColumns(i) + " ="
+                updateString += bankColumns(i) + " = "
                 updateString += shift2(i) + ", "
             Else
-                updateString += bankColumns(i) + " ="
+                updateString += bankColumns(i) + " = "
                 updateString += shift2(i) + " WHERE "
             End If
         Next
 
         For j As Integer = 0 To whereBankColumns.Length - 1 Step 1
 
-            shift2(j + bankColumns.Length - 1) = "@" + whereBankColumns(j)
+            shift2(j + bankColumns.Length) = "@" + whereBankColumns(j) + (j + bankColumns.Length - 1).ToString()
 
             If Not IsLastElement(whereBankColumns(j), whereBankColumns) Then
                 updateString += whereBankColumns(j) + " = "
-                updateString += shift2(j + bankColumns.Length - 1) + ", AND "
+                updateString += shift2(j + bankColumns.Length) + ", AND "
             Else
                 updateString += whereBankColumns(j) + " = "
-                updateString += shift2(j + bankColumns.Length - 1)
+                updateString += shift2(j + bankColumns.Length)
             End If
         Next
-
-        MessageBox.Show(updateString)
 
         Using con As MySqlConnection = MySQLConnection()
             Try
@@ -105,8 +120,8 @@ Module ConnectionModule
                     cmd.Parameters.Add(New MySqlParameter(shift2(i), itemsToUpdate(i)))
                 Next
 
-                For j As Integer = bankColumns.Length - 1 To shift2.Length - 1 Step 1
-                    cmd.Parameters.Add(New MySqlParameter(shift2(j), whereItems(j - bankColumns.Length - 1)))
+                For j As Integer = bankColumns.Length To shift2.Length - 1 Step 1
+                    cmd.Parameters.Add(New MySqlParameter(shift2(j), whereItems(j - bankColumns.Length)))
                 Next
 
                 dr = cmd.ExecuteReader()
@@ -117,13 +132,126 @@ Module ConnectionModule
                 Return True
 
             Catch ex As Exception
-                MessageBox.Show("Error!" + ex.Message + vbNewLine + updateString, programName, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Error! " + ex.Message + vbNewLine + updateString, programName, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Finally
                 con.Close()
             End Try
         End Using
 
         Return False
+    End Function
+
+    ''' <summary>
+    ''' Select from MySQL database with where statements
+    ''' </summary>
+    ''' <param name="bankColumns">String array of bank columns name</param>
+    ''' <param name="tableToSelect">Table name</param>
+    ''' <param name="whereBankColumns">Where bank columns name </param>
+    ''' <param name="whereItems">Object array with where items to search</param>
+    ''' <returns>DataTable object with the select</returns>
+    ''' <remarks></remarks>
+    Public Function SelectMySQL(ByVal bankColumns() As String, ByVal tableToSelect As String, ByVal whereBankColumns() As String, ByVal whereItems() As Object) As DataTable
+
+        Dim selectString As String = " SELECT "
+        Dim shift2((bankColumns.Length + whereBankColumns.Length) - 1) As String
+
+        For i As Integer = 0 To bankColumns.Length - 1 Step 1
+            If Not IsLastElement(bankColumns(i), bankColumns) Then
+                selectString += bankColumns(i) + ", "
+            Else
+                selectString += bankColumns(i) + " FROM "
+            End If
+        Next
+
+        selectString += tableToSelect
+
+
+        selectString += " WHERE "
+
+        For j As Integer = 0 To whereBankColumns.Length - 1 Step 1
+            shift2(j) = "@" + whereBankColumns(j)
+
+            If Not IsLastElement(whereBankColumns(j), whereBankColumns) Then
+                selectString += whereBankColumns(j) + " = "
+                selectString += shift2(j) + ", AND "
+            Else
+                selectString += whereBankColumns(j) + " = "
+                selectString += shift2(j)
+            End If
+        Next
+
+
+        Using con As MySqlConnection = MySQLConnection()
+            Try
+                con.Open()
+
+                Dim cmd As New MySqlCommand(selectString, con)
+
+                For i As Integer = 0 To whereItems.Length - 1 Step 1
+                    cmd.Parameters.Add(New MySqlParameter(shift2(i), whereItems(i)))
+                Next
+
+                Using da As New MySqlDataAdapter(cmd)
+                    Using dt As New DataTable()
+                        da.Fill(dt)
+                        con.Close()
+                        Return dt
+                    End Using
+                End Using
+
+            Catch ex As Exception
+                MessageBox.Show("Error! " + ex.Message + vbNewLine + selectString, programName, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                con.Close()
+            End Try
+        End Using
+
+        Return Nothing
+    End Function
+
+    ''' <summary>
+    ''' Simple select from MySQL database
+    ''' </summary>
+    ''' <param name="bankColumns">String array of bank columns name</param>
+    ''' <param name="tableToSelect">Table name</param>
+    ''' <returns>DataTable object with the select</returns>
+    ''' <remarks></remarks>
+    Public Function SelectMySQL(ByVal bankColumns() As String, ByVal tableToSelect As String) As DataTable
+
+        Dim selectString As String = " SELECT "
+
+        For i As Integer = 0 To bankColumns.Length - 1 Step 1
+            If Not IsLastElement(bankColumns(i), bankColumns) Then
+                selectString += bankColumns(i) + ", "
+            Else
+                selectString += bankColumns(i) + " FROM "
+            End If
+        Next
+
+        selectString += tableToSelect
+
+        Using con As MySqlConnection = MySQLConnection()
+            Try
+                con.Open()
+
+                Dim cmd As New MySqlCommand(selectString, con)
+
+                Using da As New MySqlDataAdapter(cmd)
+                    Using dt As New DataTable()
+                        da.Fill(dt)
+                        con.Close()
+                        Return dt
+                    End Using
+                End Using
+
+            Catch ex As Exception
+                MessageBox.Show("Error! " + ex.Message + vbNewLine + selectString, programName, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                con.Close()
+            End Try
+        End Using
+
+        Return Nothing
     End Function
 
     Public Function CheckExistence(ByVal tableToCheck As String, ByVal bankColumns() As Object, ByVal itemsToCheck() As Object)

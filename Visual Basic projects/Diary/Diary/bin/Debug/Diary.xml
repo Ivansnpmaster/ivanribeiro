@@ -23,6 +23,16 @@ Diary
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
+</member><member name="M:Diary.ConnectionModule.SelectMySQL(System.String[],System.String,System.String[],System.Object[])">
+	<summary>
+ Simple select from database, may have 'where' statements
+ </summary>
+	<param name="bankColumns">String array of bank columns name</param>
+	<param name="tableToSelect">Table name</param>
+	<param name="whereBankColumns">Where bank columns name </param>
+	<param name="whereItems">Object array with where items to search</param>
+	<returns>DataTable object with the select</returns>
+	<remarks></remarks>
 </member>
 </members>
 </doc>

@@ -46,13 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\BuildController.cs" />
-     <Compile Include="Assets\Scripts\Building.cs" />
-     <Compile Include="Assets\Scripts\MainCamera.cs" />
-     <Compile Include="Assets\Scripts\Map\Grid.cs" />
-     <Compile Include="Assets\Scripts\Map\Node.cs" />
-     <Compile Include="Assets\Scripts\Player\Player.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\BuildingController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\MouseController.cs" />
+     <Compile Include="Assets\Scripts\Grid.cs" />
+     <Compile Include="Assets\Scripts\Models\Building.cs" />
+     <Compile Include="Assets\Scripts\Models\Node.cs" />
+     <Compile Include="Assets\Scripts\UI\UIBuilding.cs" />
+     <Compile Include="Assets\Scripts\UI\UIController.cs" />
+     <Compile Include="Assets\Scripts\Utility.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
