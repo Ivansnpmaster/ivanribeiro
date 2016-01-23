@@ -23,16 +23,40 @@ Diary
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
+</member><member name="M:Diary.ConnectionModule.InsertToMySQL(System.String,System.String[],System.Object[])">
+	<summary>
+ Insert to MySQL database
+ </summary>
+	<param name="tableToInsert">Table name</param>
+	<param name="bankColumns">String array of bank columns name</param>
+	<param name="itemsToInsert">Object array containing items to insert</param>
+</member><member name="M:Diary.ConnectionModule.UpdateToMySQL(System.String,System.String[],System.Object[],System.String[],System.Object[])">
+	<summary>
+ Update MySQL database with where statements
+ </summary>
+	<param name="tableToUpdate">Table name</param>
+	<param name="bankColumns">String array of bank columns name</param>
+	<param name="itemsToUpdate">Object array containing items to update</param>
+	<param name="whereBankColumns">Where bank columns name </param>
+	<param name="whereItems">Object array with where items to update</param>
+	<returns>If updated successfully, returns <c>True</c>, otherwise, <c>False</c></returns>
+	<remarks>Be sure to use this only when you know there's something to update</remarks>
 </member><member name="M:Diary.ConnectionModule.SelectMySQL(System.String[],System.String,System.String[],System.Object[])">
 	<summary>
- Simple select from database, may have 'where' statements
+ Select from MySQL database with where statements
  </summary>
 	<param name="bankColumns">String array of bank columns name</param>
 	<param name="tableToSelect">Table name</param>
 	<param name="whereBankColumns">Where bank columns name </param>
 	<param name="whereItems">Object array with where items to search</param>
 	<returns>DataTable object with the select</returns>
-	<remarks></remarks>
+</member><member name="M:Diary.ConnectionModule.SelectMySQL(System.String[],System.String)">
+	<summary>
+ Simple select from MySQL database
+ </summary>
+	<param name="bankColumns">String array of bank columns name</param>
+	<param name="tableToSelect">Table name</param>
+	<returns>DataTable object with the select</returns>
 </member>
 </members>
 </doc>

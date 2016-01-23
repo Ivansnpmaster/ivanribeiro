@@ -18,7 +18,7 @@ Partial Class Diary
     Private components As System.ComponentModel.IContainer
 
     'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
+    'It can be modified using the Windows Form Designer.
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
@@ -87,47 +87,49 @@ Partial Class Diary
         'lblFoundDaysMyDays
         '
         Me.lblFoundDaysMyDays.AutoSize = True
-        Me.lblFoundDaysMyDays.Location = New System.Drawing.Point(272, 183)
+        Me.lblFoundDaysMyDays.Location = New System.Drawing.Point(272, 383)
         Me.lblFoundDaysMyDays.Name = "lblFoundDaysMyDays"
         Me.lblFoundDaysMyDays.Size = New System.Drawing.Size(98, 14)
         Me.lblFoundDaysMyDays.TabIndex = 1
-        Me.lblFoundDaysMyDays.Text = "Found days: 0"
+        Me.lblFoundDaysMyDays.Text = "Days found: 0"
         Me.lblFoundDaysMyDays.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'dgvMyDays
         '
         Me.dgvMyDays.AllowUserToAddRows = False
         Me.dgvMyDays.AllowUserToDeleteRows = False
+        Me.dgvMyDays.AllowUserToResizeColumns = False
+        Me.dgvMyDays.AllowUserToResizeRows = False
         Me.dgvMyDays.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvMyDays.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.dgvMyDays.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvMyDays.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.code, Me.data, Me.content})
-        Me.dgvMyDays.Location = New System.Drawing.Point(18, 30)
+        Me.dgvMyDays.Location = New System.Drawing.Point(18, 8)
         Me.dgvMyDays.MultiSelect = False
         Me.dgvMyDays.Name = "dgvMyDays"
         Me.dgvMyDays.ReadOnly = True
+        Me.dgvMyDays.RowHeadersVisible = False
+        Me.dgvMyDays.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.dgvMyDays.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvMyDays.Size = New System.Drawing.Size(352, 150)
+        Me.dgvMyDays.Size = New System.Drawing.Size(352, 372)
         Me.dgvMyDays.TabIndex = 0
         Me.dgvMyDays.TabStop = False
         '
         'code
         '
-        Me.code.FillWeight = 60.0!
+        Me.code.FillWeight = 50.0!
         Me.code.HeaderText = "Code"
         Me.code.Name = "code"
         Me.code.ReadOnly = True
-        Me.code.Width = 60
+        Me.code.Width = 50
         '
         'data
         '
-        Me.data.FillWeight = 80.0!
-        Me.data.HeaderText = "Data"
+        Me.data.HeaderText = "Date"
         Me.data.Name = "data"
         Me.data.ReadOnly = True
-        Me.data.Width = 80
         '
         'content
         '
@@ -152,9 +154,9 @@ Partial Class Diary
         '
         'btnRecordNewDay
         '
-        Me.btnRecordNewDay.Location = New System.Drawing.Point(42, 353)
+        Me.btnRecordNewDay.Location = New System.Drawing.Point(16, 371)
         Me.btnRecordNewDay.Name = "btnRecordNewDay"
-        Me.btnRecordNewDay.Size = New System.Drawing.Size(313, 23)
+        Me.btnRecordNewDay.Size = New System.Drawing.Size(356, 23)
         Me.btnRecordNewDay.TabIndex = 4
         Me.btnRecordNewDay.Text = "Record"
         Me.btnRecordNewDay.UseVisualStyleBackColor = True
@@ -162,7 +164,7 @@ Partial Class Diary
         'lblContentNewDay
         '
         Me.lblContentNewDay.AutoSize = True
-        Me.lblContentNewDay.Location = New System.Drawing.Point(39, 100)
+        Me.lblContentNewDay.Location = New System.Drawing.Point(13, 72)
         Me.lblContentNewDay.Name = "lblContentNewDay"
         Me.lblContentNewDay.Size = New System.Drawing.Size(63, 14)
         Me.lblContentNewDay.TabIndex = 3
@@ -170,17 +172,18 @@ Partial Class Diary
         '
         'txtContentNewDay
         '
-        Me.txtContentNewDay.Location = New System.Drawing.Point(42, 117)
+        Me.txtContentNewDay.Location = New System.Drawing.Point(16, 89)
         Me.txtContentNewDay.Multiline = True
         Me.txtContentNewDay.Name = "txtContentNewDay"
-        Me.txtContentNewDay.Size = New System.Drawing.Size(313, 230)
+        Me.txtContentNewDay.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtContentNewDay.Size = New System.Drawing.Size(356, 276)
         Me.txtContentNewDay.TabIndex = 2
         '
         'dtpDayNewDay
         '
         Me.dtpDayNewDay.CustomFormat = ""
         Me.dtpDayNewDay.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDayNewDay.Location = New System.Drawing.Point(42, 52)
+        Me.dtpDayNewDay.Location = New System.Drawing.Point(16, 27)
         Me.dtpDayNewDay.Name = "dtpDayNewDay"
         Me.dtpDayNewDay.Size = New System.Drawing.Size(118, 22)
         Me.dtpDayNewDay.TabIndex = 1
@@ -189,7 +192,7 @@ Partial Class Diary
         'lblDayNewDay
         '
         Me.lblDayNewDay.AutoSize = True
-        Me.lblDayNewDay.Location = New System.Drawing.Point(39, 35)
+        Me.lblDayNewDay.Location = New System.Drawing.Point(13, 10)
         Me.lblDayNewDay.Name = "lblDayNewDay"
         Me.lblDayNewDay.Size = New System.Drawing.Size(35, 14)
         Me.lblDayNewDay.TabIndex = 0
@@ -223,11 +226,11 @@ Partial Class Diary
     Friend WithEvents dgvMyDays As System.Windows.Forms.DataGridView
     Friend WithEvents lblFoundDaysMyDays As System.Windows.Forms.Label
     Friend WithEvents lblDayNewDay As System.Windows.Forms.Label
-    Friend WithEvents code As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents data As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents content As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents dtpDayNewDay As System.Windows.Forms.DateTimePicker
     Friend WithEvents txtContentNewDay As System.Windows.Forms.TextBox
     Friend WithEvents lblContentNewDay As System.Windows.Forms.Label
     Friend WithEvents btnRecordNewDay As System.Windows.Forms.Button
+    Friend WithEvents code As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents data As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents content As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

@@ -16,8 +16,6 @@ Module ConnectionModule
     ''' <param name="tableToInsert">Table name</param>
     ''' <param name="bankColumns">String array of bank columns name</param>
     ''' <param name="itemsToInsert">Object array containing items to insert</param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
     Public Function InsertToMySQL(ByVal tableToInsert As String, ByVal bankColumns() As String, ByVal itemsToInsert() As Object)
 
         Dim insertString As String = "INSERT INTO " + tableToInsert + " ("
@@ -149,7 +147,6 @@ Module ConnectionModule
     ''' <param name="whereBankColumns">Where bank columns name </param>
     ''' <param name="whereItems">Object array with where items to search</param>
     ''' <returns>DataTable object with the select</returns>
-    ''' <remarks></remarks>
     Public Function SelectMySQL(ByVal bankColumns() As String, ByVal tableToSelect As String, ByVal whereBankColumns() As String, ByVal whereItems() As Object) As DataTable
 
         Dim selectString As String = " SELECT "
@@ -215,7 +212,6 @@ Module ConnectionModule
     ''' <param name="bankColumns">String array of bank columns name</param>
     ''' <param name="tableToSelect">Table name</param>
     ''' <returns>DataTable object with the select</returns>
-    ''' <remarks></remarks>
     Public Function SelectMySQL(ByVal bankColumns() As String, ByVal tableToSelect As String) As DataTable
 
         Dim selectString As String = " SELECT "
