@@ -90,17 +90,18 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Custom classes\MySQLConnection_Class.vb" />
     <Compile Include="Custom classes\TabControlClass.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Custom classes\Utility.vb" />
     <Compile Include="Diary.Designer.vb">
       <DependentUpon>Diary.vb</DependentUpon>
     </Compile>
     <Compile Include="Diary.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Modules\ConnectionModule.vb" />
-    <Compile Include="Modules\GeneralFunctions.vb" />
+    <Compile Include="Modules\GlobalVariables.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

@@ -1,6 +1,8 @@
 ﻿Public Class TabControlClass
     Inherits TabControl
 
+    Dim utility As New Utility
+
     Sub New()
         SetStyle(ControlStyles.AllPaintingInWmPaint Or ControlStyles.OptimizedDoubleBuffer Or ControlStyles.ResizeRedraw Or ControlStyles.UserPaint, True)
         DoubleBuffered = True
@@ -31,7 +33,7 @@
             End If
 
             If i = 0 Then
-                Using ft As Font = CreateFont("Arial", 15, True, False, False)
+                Using ft As Font = utility.CreateFont("Arial", 15, True, False, False)
                     G.DrawString(TabPages(i).Text, ft, Brushes.White, TabRectangle, New StringFormat With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
                 End Using
             Else
@@ -44,4 +46,5 @@
         MyBase.OnPaint(e)
 
     End Sub
+
 End Class

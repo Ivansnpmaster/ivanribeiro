@@ -1,12 +1,12 @@
 ﻿Imports MySql.Data.MySqlClient
 
-Module ConnectionModule
+Public Class MySQLConnection_Class
 
-    Public table As String = "diary"
-    Public db As String = "diaryDB"
+    Dim utility As New Utility
+
+    Public stringMySQLConnection As String = "server =localhost; user id =root; password =; database =diaryDB;"
 
     Public Function MySQLConnection() As MySqlConnection
-        Dim stringMySQLConnection As String = "server =localhost; user id =root; password =; database =" + db + ";"
         Return New MySqlConnection(stringMySQLConnection)
     End Function
 
@@ -22,7 +22,7 @@ Module ConnectionModule
         Dim shift2(bankColumns.Length - 1) As String
 
         For i As Integer = 0 To bankColumns.Length - 1 Step 1
-            If Not IsLastElement(bankColumns(i), bankColumns) Then
+            If Not utility.IsLastElement(bankColumns(i), bankColumns) Then
                 insertString += bankColumns(i) + ", "
             Else
                 insertString += bankColumns(i) + ") VALUES ("
@@ -32,7 +32,7 @@ Module ConnectionModule
         Next
 
         For j As Integer = 0 To shift2.Length - 1 Step 1
-            If Not IsLastElement(shift2(j), shift2) Then
+            If Not utility.IsLastElement(shift2(j), shift2) Then
                 insertString += shift2(j) + ", "
             Else
                 insertString += shift2(j) + ")"
@@ -85,7 +85,7 @@ Module ConnectionModule
 
             shift2(i) = "@" + bankColumns(i)
 
-            If Not IsLastElement(bankColumns(i), bankColumns) Then
+            If Not utility.IsLastElement(bankColumns(i), bankColumns) Then
                 updateString += bankColumns(i) + " = "
                 updateString += shift2(i) + ", "
             Else
@@ -98,7 +98,7 @@ Module ConnectionModule
 
             shift2(j + bankColumns.Length) = "@" + whereBankColumns(j) + (j + bankColumns.Length - 1).ToString()
 
-            If Not IsLastElement(whereBankColumns(j), whereBankColumns) Then
+            If Not utility.IsLastElement(whereBankColumns(j), whereBankColumns) Then
                 updateString += whereBankColumns(j) + " = "
                 updateString += shift2(j + bankColumns.Length) + ", AND "
             Else
@@ -153,7 +153,7 @@ Module ConnectionModule
         Dim shift2((bankColumns.Length + whereBankColumns.Length) - 1) As String
 
         For i As Integer = 0 To bankColumns.Length - 1 Step 1
-            If Not IsLastElement(bankColumns(i), bankColumns) Then
+            If Not utility.IsLastElement(bankColumns(i), bankColumns) Then
                 selectString += bankColumns(i) + ", "
             Else
                 selectString += bankColumns(i) + " FROM "
@@ -168,7 +168,7 @@ Module ConnectionModule
         For j As Integer = 0 To whereBankColumns.Length - 1 Step 1
             shift2(j) = "@" + whereBankColumns(j)
 
-            If Not IsLastElement(whereBankColumns(j), whereBankColumns) Then
+            If Not utility.IsLastElement(whereBankColumns(j), whereBankColumns) Then
                 selectString += whereBankColumns(j) + " = "
                 selectString += shift2(j) + ", AND "
             Else
@@ -217,7 +217,7 @@ Module ConnectionModule
         Dim selectString As String = " SELECT "
 
         For i As Integer = 0 To bankColumns.Length - 1 Step 1
-            If Not IsLastElement(bankColumns(i), bankColumns) Then
+            If Not utility.IsLastElement(bankColumns(i), bankColumns) Then
                 selectString += bankColumns(i) + ", "
             Else
                 selectString += bankColumns(i) + " FROM "
@@ -255,7 +255,7 @@ Module ConnectionModule
         Dim sql As String = "SELECT "
 
         For i As Integer = 0 To bankColumns.Length - 1 Step 1
-            If Not IsLastElement(bankColumns(i), bankColumns) Then
+            If Not utility.IsLastElement(bankColumns(i), bankColumns) Then
                 sql += bankColumns(i) + ", "
             Else
                 sql += bankColumns(i) + " "
@@ -265,7 +265,7 @@ Module ConnectionModule
         sql += "FROM " + tableToCheck + " WHERE "
 
         For i As Integer = 0 To itemsToCheck.Length - 1 Step 1
-            If Not IsLastElement(itemsToCheck(i), itemsToCheck) Then
+            If Not utility.IsLastElement(itemsToCheck(i), itemsToCheck) Then
                 sql += bankColumns(i) + "='" + itemsToCheck(i) + "' AND "
             Else
                 sql += bankColumns(i) + "='" + itemsToCheck(i) + "'"
@@ -298,4 +298,4 @@ Module ConnectionModule
         End Using
     End Function
 
-End Module
+End Class

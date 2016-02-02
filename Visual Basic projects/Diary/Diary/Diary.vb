@@ -1,33 +1,29 @@
 ﻿Public Class Diary
 
+    Dim connection As New MySQLConnection_Class
+    Dim utility As New Utility
+
     Private Sub Diary_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadDaysAtDatagridView()
     End Sub
 
     Private Sub LoadDaysAtDatagridView()
 
-        dgvMyDays.Rows.Clear()
-
         Dim bankColumns(2) As String
         bankColumns(0) = "code"
         bankColumns(1) = "date"
         bankColumns(2) = "content"
 
-        Dim days As DataTable = SelectMySQL(bankColumns, table)
+        Dim days As DataTable = connection.SelectMySQL(bankColumns, table)
+        Dim cont As Integer = utility.PopulateDatagridView(dgvMyDays, days, True)
 
-        If days.Rows.Count > 0 Then
-            Dim i As Integer = 0
-            While i < days.Rows.Count
-                dgvMyDays.Rows.Add()
-                dgvMyDays.Rows(i).Cells(bankColumns(0)).Value = days.Rows(i).Item(bankColumns(0)).ToString
-                'DatagridView doesn't accept 'date' as column name
-                dgvMyDays.Rows(i).Cells("data").Value = days.Rows(i).Item(bankColumns(1)).ToString.Substring(0, 10)
-                dgvMyDays.Rows(i).Cells(bankColumns(2)).Value = days.Rows(i).Item(bankColumns(2)).ToString
-                i += 1
-            End While
-        End If
+        'Just for edit the data format
+        For i As Integer = 0 To dgvMyDays.Rows.Count - 1
+            Dim newDate As String = dgvMyDays.Rows(i).Cells("data").Value
+            dgvMyDays.Rows(i).Cells("data").Value = newDate.Substring(0, 10)
+        Next
 
-        lblFoundDaysMyDays.Text = "Days found: " + dgvMyDays.RowCount.ToString
+        lblFoundDaysMyDays.Text = "Days found: " + cont.ToString()
 
     End Sub
 
@@ -66,10 +62,10 @@
 
         '---------- Function
 
-        Dim exists As Boolean = CheckExistence("diary", srtBankCheck, srtItems)
+        Dim exists As Boolean = connection.CheckExistence("diary", srtBankCheck, srtItems)
 
         If Not (exists) Then
-            InsertToMySQL("diary", bankColumns, items)
+            connection.InsertToMySQL("diary", bankColumns, items)
             modified = True
         Else
             If (MessageBox.Show("We found a record of this day, are you sure you want to overwrite it ?", programName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = System.Windows.Forms.DialogResult.Yes) Then
@@ -77,7 +73,7 @@
                 Dim strBankWhereStatement(0) As String
                 strBankWhereStatement(0) = "date"
 
-                UpdateToMySQL("diary", bankColumns, items, strBankWhereStatement, srtItems)
+                connection.UpdateToMySQL("diary", bankColumns, items, strBankWhereStatement, srtItems)
                 modified = True
             End If
         End If
@@ -98,17 +94,16 @@
         Dim whereItems(0) As Object
         whereItems(0) = dt.ToString("yyyy-MM-dd")
 
-        Dim dr As DataTable = SelectMySQL(bankColumns, "diary", whereBankColumns, whereItems)
+        Dim dr As DataTable = connection.SelectMySQL(bankColumns, "diary", whereBankColumns, whereItems)
 
         If dr.Rows.Count > 0 Then
             txtContentNewDay.Text = dr.Rows(0).Item("content").ToString
         Else
             txtContentNewDay.Clear()
         End If
-
     End Sub
 
-    'Just reload if some modification happened
+    'Just to reload if some modification happened
     Dim modified As Boolean = True
 
     Private Sub tabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tabControl.SelectedIndexChanged
