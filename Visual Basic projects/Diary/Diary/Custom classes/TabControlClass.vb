@@ -33,7 +33,7 @@
             End If
 
             If i = 0 Then
-                Using ft As Font = utility.CreateFont("Arial", 15, True, False, False)
+                Using ft As Font = utility.CreateFont("Consolas", 15, True, False, False)
                     G.DrawString(TabPages(i).Text, ft, Brushes.White, TabRectangle, New StringFormat With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
                 End Using
             Else

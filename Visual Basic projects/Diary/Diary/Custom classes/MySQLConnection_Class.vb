@@ -51,7 +51,7 @@ Public Class MySQLConnection_Class
                 cmd.ExecuteNonQuery()
                 con.Close()
 
-                MessageBox.Show("Gravado com sucesso!", programName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("Successfully recorded!", programName, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return True
 
             Catch ex As Exception
@@ -75,7 +75,7 @@ Public Class MySQLConnection_Class
     ''' <param name="whereItems">Object array with where items to update</param>
     ''' <returns>If updated successfully, returns <c>True</c>, otherwise, <c>False</c></returns>
     ''' <remarks>Be sure to use this only when you know there's something to update</remarks>
-    Public Function UpdateToMySQL(ByVal tableToUpdate As String, ByVal bankColumns() As String, ByVal itemsToUpdate() As Object, ByVal whereBankColumns() As String, ByVal whereItems() As Object)
+    Public Function UpdateToMySQL(ByVal tableToUpdate As String, ByVal bankColumns() As String, ByVal itemsToUpdate() As Object, ByVal whereBankColumns() As String, ByVal whereItems() As Object, ByVal wantMessage As Boolean)
 
         Dim updateString As String = "UPDATE " + tableToUpdate + " SET "
 
@@ -126,7 +126,7 @@ Public Class MySQLConnection_Class
                 dr.Close()
                 con.Close()
 
-                MessageBox.Show("Informations updated!", programName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                If (wantMessage) Then MessageBox.Show("Informations updated!", programName, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return True
 
             Catch ex As Exception

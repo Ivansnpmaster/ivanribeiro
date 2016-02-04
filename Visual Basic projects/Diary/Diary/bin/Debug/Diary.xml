@@ -6,14 +6,31 @@ Diary
 </name>
 </assembly>
 <members>
-<member name="M:Diary.MySQLConnection_Class.InsertToMySQL(System.String,System.String[],System.Object[])">
+<member name="P:Diary.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:Diary.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:Diary.My.Resources.Resources.imgDiary">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="T:Diary.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="M:Diary.MySQLConnection_Class.InsertToMySQL(System.String,System.String[],System.Object[])">
 	<summary>
  Insert to MySQL database
  </summary>
 	<param name="tableToInsert">Table name</param>
 	<param name="bankColumns">String array of bank columns name</param>
 	<param name="itemsToInsert">Object array containing items to insert</param>
-</member><member name="M:Diary.MySQLConnection_Class.UpdateToMySQL(System.String,System.String[],System.Object[],System.String[],System.Object[])">
+</member><member name="M:Diary.MySQLConnection_Class.UpdateToMySQL(System.String,System.String[],System.Object[],System.String[],System.Object[],System.Boolean)">
 	<summary>
  Update MySQL database with where statements
  </summary>
@@ -40,23 +57,6 @@ Diary
 	<param name="bankColumns">String array of bank columns name</param>
 	<param name="tableToSelect">Table name</param>
 	<returns>DataTable object with the select</returns>
-</member><member name="P:Diary.My.Resources.Resources.ResourceManager">
-	<summary>
-  Returns the cached ResourceManager instance used by this class.
-</summary>
-</member><member name="P:Diary.My.Resources.Resources.Culture">
-	<summary>
-  Overrides the current thread's CurrentUICulture property for all
-  resource lookups using this strongly typed resource class.
-</summary>
-</member><member name="P:Diary.My.Resources.Resources.imgDiary">
-	<summary>
-  Looks up a localized resource of type System.Drawing.Bitmap.
-</summary>
-</member><member name="T:Diary.My.Resources.Resources">
-	<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
 </member>
 </members>
 </doc>

@@ -1,11 +1,12 @@
 ﻿Public Class Diary
 
-    Dim connection As New MySQLConnection_Class
     Dim utility As New Utility
 
     Private Sub Diary_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadDaysAtDatagridView()
     End Sub
+
+#Region "My days"
 
     Private Sub LoadDaysAtDatagridView()
 
@@ -26,6 +27,10 @@
         lblFoundDaysMyDays.Text = "Days found: " + cont.ToString()
 
     End Sub
+
+#End Region
+
+#Region "New day"
 
     Private Sub btnRecordNewDay_Click(sender As Object, e As EventArgs) Handles btnRecordNewDay.Click
 
@@ -73,7 +78,7 @@
                 Dim strBankWhereStatement(0) As String
                 strBankWhereStatement(0) = "date"
 
-                connection.UpdateToMySQL("diary", bankColumns, items, strBankWhereStatement, srtItems)
+                connection.UpdateToMySQL("diary", bankColumns, items, strBankWhereStatement, srtItems, True)
                 modified = True
             End If
         End If
@@ -103,6 +108,8 @@
         End If
     End Sub
 
+#End Region
+
     'Just to reload if some modification happened
     Dim modified As Boolean = True
 
@@ -114,8 +121,89 @@
                     LoadDaysAtDatagridView()
                     modified = False
                 End If
+            Case 3
+                LoadImages()
         End Select
 
     End Sub
+
+#Region "Configurations"
+
+    Private Sub LoadImages()
+        Dim bankColumns() As String = New String() {"id", "imageName"}
+        Dim dt As DataTable = connection.SelectMySQL(bankColumns, "background")
+
+        If (dt.Rows.Count > 0) Then
+            Dim i As Integer = 0
+            While (i < dt.Rows.Count - 1)
+                utility.PopulateDatagridView(dgvConfigurationListImages, dt, True)
+                i += 1
+            End While
+        End If
+    End Sub
+
+    Private Sub btnConfigurationsNewOne_Click(sender As Object, e As EventArgs) Handles btnConfigurationsNewOne.Click
+
+        Dim ofd As New OpenFileDialog
+        ofd.InitialDirectory = Environment.SpecialFolder.MyPictures
+        ofd.Filter = strImageFilter
+
+        If ofd.ShowDialog = DialogResult.OK Then
+            picBoxConfiguration.Image = Image.FromFile(ofd.FileName)
+            selectedNewImage = True
+        End If
+
+    End Sub
+
+    'Just to check if some new image was uploaded to picturebox
+    Dim selectedNewImage As Boolean = False
+
+    Private Sub btnConfigurationSaveInBank_Click(sender As Object, e As EventArgs) Handles btnConfigurationSaveInBank.Click
+
+        If (selectedNewImage) Then
+
+            Dim selectBankLstIndex() As String = New String() {"id"}
+            Dim dt As DataTable = connection.SelectMySQL(selectBankLstIndex, "background")
+
+            Dim arrayImage() As Byte = utility.ImageToByte(picBoxConfiguration)
+            Dim bankColumns() As String = New String() {"imageName", "image", "current"}
+            Dim itemsToInsert() As Object = New Object() {"Imagem " & dt.Rows(dt.Rows.Count - 1).Item(0) + 1, arrayImage, 0}
+
+            connection.InsertToMySQL("background", bankColumns, itemsToInsert)
+            selectedNewImage = False
+        End If
+
+    End Sub
+
+    Private Sub dgvConfigurationListImages_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvConfigurationListImages.CellClick
+
+        Dim bankColumns() As String = New String() {"image"}
+        Dim whereBankColumns() As String = New String() {"id"}
+        Dim whereItems() As Object = New Object() {dgvConfigurationListImages.CurrentRow.Cells(0).Value}
+
+        Dim dt As DataTable = connection.SelectMySQL(bankColumns, "background", whereBankColumns, whereItems)
+
+        If (dt.Rows.Count > 0) Then
+            picBoxConfiguration.Image = utility.ByteToImage(dt.Rows(0).Item(0))
+        End If
+
+    End Sub
+
+    Private Sub btnConfigurationSetCurrent_Click(sender As Object, e As EventArgs) Handles btnConfigurationSetCurrent.Click
+
+        Dim allItemsToUpdate() As Object = New Object() {0}
+
+        'Update only the selected
+        Dim bankColumns() As String = New String() {"current"}
+        Dim whereBankColumns() As String = New String() {"id"}
+        Dim itemsToUpdate() As Object = New Object() {1}
+        Dim whereItems() As Object = New Object() {dgvConfigurationListImages.CurrentRow.Cells(0).Value}
+
+        connection.UpdateToMySQL("background", bankColumns, allItemsToUpdate, bankColumns, itemsToUpdate, False)
+        connection.UpdateToMySQL("background", bankColumns, itemsToUpdate, whereBankColumns, whereItems, True)
+
+    End Sub
+
+#End Region
 
 End Class

@@ -47,26 +47,24 @@
 
     Public Function ImageToByte(ByVal pictureBox As PictureBox) As Byte()
 
-        Dim minhaStream As New IO.MemoryStream
-        pictureBox.Image.Save(minhaStream, Imaging.ImageFormat.Jpeg)
+        Dim memoryStream As New IO.MemoryStream
+        pictureBox.Image.Save(memoryStream, Imaging.ImageFormat.Jpeg)
 
-        Dim arrayImage() As Byte = minhaStream.GetBuffer
-        minhaStream.Close()
+        Dim arrayImage() As Byte = memoryStream.GetBuffer
+        memoryStream.Close()
 
         Return arrayImage
-
     End Function
 
     Public Function ByteToImage(ByVal imageBytes() As Byte) As Image
 
         Dim imageData As Byte() = DirectCast(imageBytes, Byte())
         Dim memoryStream As New IO.MemoryStream(imageData)
-        Dim picBox As New PictureBox
-        picBox.Image = Image.FromStream(memoryStream)
+        Dim pictureBox As New PictureBox
+        pictureBox.Image = Image.FromStream(memoryStream)
         memoryStream.Close()
 
-        Return picBox.Image
-
+        Return pictureBox.Image
     End Function
 
 End Class

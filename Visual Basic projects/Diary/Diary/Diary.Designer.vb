@@ -36,10 +36,29 @@ Partial Class Diary
         Me.txtContentNewDay = New System.Windows.Forms.TextBox()
         Me.dtpDayNewDay = New System.Windows.Forms.DateTimePicker()
         Me.lblDayNewDay = New System.Windows.Forms.Label()
+        Me.tabConfigurations = New System.Windows.Forms.TabPage()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.tabBackground = New System.Windows.Forms.TabPage()
+        Me.dgvConfigurationListImages = New System.Windows.Forms.DataGridView()
+        Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.imageName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.btnConfigurationSaveInBank = New System.Windows.Forms.Button()
+        Me.btnConfigurationSetCurrent = New System.Windows.Forms.Button()
+        Me.picBoxConfiguration = New System.Windows.Forms.PictureBox()
+        Me.btnConfigurationsDeleteSelected = New System.Windows.Forms.Button()
+        Me.btnConfigurationsNewOne = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.tabControl.SuspendLayout()
         Me.tabMyDays.SuspendLayout()
         CType(Me.dgvMyDays, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabNewDay.SuspendLayout()
+        Me.tabConfigurations.SuspendLayout()
+        Me.TabControl1.SuspendLayout()
+        Me.tabBackground.SuspendLayout()
+        CType(Me.dgvConfigurationListImages, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
+        CType(Me.picBoxConfiguration, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tabControl
@@ -48,6 +67,7 @@ Partial Class Diary
         Me.tabControl.Controls.Add(Me.tabMain)
         Me.tabControl.Controls.Add(Me.tabMyDays)
         Me.tabControl.Controls.Add(Me.tabNewDay)
+        Me.tabControl.Controls.Add(Me.tabConfigurations)
         Me.tabControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tabControl.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tabControl.ItemSize = New System.Drawing.Size(35, 120)
@@ -198,6 +218,151 @@ Partial Class Diary
         Me.lblDayNewDay.TabIndex = 0
         Me.lblDayNewDay.Text = "Day:"
         '
+        'tabConfigurations
+        '
+        Me.tabConfigurations.Controls.Add(Me.TabControl1)
+        Me.tabConfigurations.Location = New System.Drawing.Point(124, 4)
+        Me.tabConfigurations.Name = "tabConfigurations"
+        Me.tabConfigurations.Size = New System.Drawing.Size(388, 402)
+        Me.tabConfigurations.TabIndex = 3
+        Me.tabConfigurations.Text = "Configurations"
+        Me.tabConfigurations.UseVisualStyleBackColor = True
+        '
+        'TabControl1
+        '
+        Me.TabControl1.Controls.Add(Me.tabBackground)
+        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TabControl1.Location = New System.Drawing.Point(0, 0)
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        Me.TabControl1.Size = New System.Drawing.Size(388, 402)
+        Me.TabControl1.TabIndex = 6
+        '
+        'tabBackground
+        '
+        Me.tabBackground.Controls.Add(Me.dgvConfigurationListImages)
+        Me.tabBackground.Controls.Add(Me.GroupBox1)
+        Me.tabBackground.Controls.Add(Me.Label1)
+        Me.tabBackground.Location = New System.Drawing.Point(4, 23)
+        Me.tabBackground.Name = "tabBackground"
+        Me.tabBackground.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabBackground.Size = New System.Drawing.Size(380, 375)
+        Me.tabBackground.TabIndex = 0
+        Me.tabBackground.Text = "Background"
+        Me.tabBackground.UseVisualStyleBackColor = True
+        '
+        'dgvConfigurationListImages
+        '
+        Me.dgvConfigurationListImages.AllowUserToAddRows = False
+        Me.dgvConfigurationListImages.AllowUserToDeleteRows = False
+        Me.dgvConfigurationListImages.AllowUserToResizeColumns = False
+        Me.dgvConfigurationListImages.AllowUserToResizeRows = False
+        Me.dgvConfigurationListImages.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvConfigurationListImages.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.dgvConfigurationListImages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvConfigurationListImages.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.id, Me.imageName})
+        Me.dgvConfigurationListImages.Location = New System.Drawing.Point(9, 26)
+        Me.dgvConfigurationListImages.MultiSelect = False
+        Me.dgvConfigurationListImages.Name = "dgvConfigurationListImages"
+        Me.dgvConfigurationListImages.ReadOnly = True
+        Me.dgvConfigurationListImages.RowHeadersVisible = False
+        Me.dgvConfigurationListImages.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.dgvConfigurationListImages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvConfigurationListImages.Size = New System.Drawing.Size(365, 184)
+        Me.dgvConfigurationListImages.TabIndex = 1
+        Me.dgvConfigurationListImages.TabStop = False
+        '
+        'id
+        '
+        Me.id.DataPropertyName = "id"
+        Me.id.FillWeight = 50.0!
+        Me.id.HeaderText = "Code"
+        Me.id.Name = "id"
+        Me.id.ReadOnly = True
+        Me.id.Width = 50
+        '
+        'imageName
+        '
+        Me.imageName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.imageName.DataPropertyName = "imageName"
+        Me.imageName.HeaderText = "Name"
+        Me.imageName.Name = "imageName"
+        Me.imageName.ReadOnly = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.btnConfigurationSaveInBank)
+        Me.GroupBox1.Controls.Add(Me.btnConfigurationSetCurrent)
+        Me.GroupBox1.Controls.Add(Me.picBoxConfiguration)
+        Me.GroupBox1.Controls.Add(Me.btnConfigurationsDeleteSelected)
+        Me.GroupBox1.Controls.Add(Me.btnConfigurationsNewOne)
+        Me.GroupBox1.Location = New System.Drawing.Point(9, 216)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(365, 153)
+        Me.GroupBox1.TabIndex = 2
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Image info:"
+        '
+        'btnConfigurationSaveInBank
+        '
+        Me.btnConfigurationSaveInBank.Location = New System.Drawing.Point(6, 50)
+        Me.btnConfigurationSaveInBank.Name = "btnConfigurationSaveInBank"
+        Me.btnConfigurationSaveInBank.Size = New System.Drawing.Size(207, 30)
+        Me.btnConfigurationSaveInBank.TabIndex = 6
+        Me.btnConfigurationSaveInBank.TabStop = False
+        Me.btnConfigurationSaveInBank.Text = "Save in list"
+        Me.btnConfigurationSaveInBank.UseVisualStyleBackColor = True
+        '
+        'btnConfigurationSetCurrent
+        '
+        Me.btnConfigurationSetCurrent.Location = New System.Drawing.Point(6, 112)
+        Me.btnConfigurationSetCurrent.Name = "btnConfigurationSetCurrent"
+        Me.btnConfigurationSetCurrent.Size = New System.Drawing.Size(207, 30)
+        Me.btnConfigurationSetCurrent.TabIndex = 5
+        Me.btnConfigurationSetCurrent.TabStop = False
+        Me.btnConfigurationSetCurrent.Text = "Set current"
+        Me.btnConfigurationSetCurrent.UseVisualStyleBackColor = True
+        '
+        'picBoxConfiguration
+        '
+        Me.picBoxConfiguration.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picBoxConfiguration.Location = New System.Drawing.Point(219, 21)
+        Me.picBoxConfiguration.Name = "picBoxConfiguration"
+        Me.picBoxConfiguration.Size = New System.Drawing.Size(140, 120)
+        Me.picBoxConfiguration.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picBoxConfiguration.TabIndex = 0
+        Me.picBoxConfiguration.TabStop = False
+        '
+        'btnConfigurationsDeleteSelected
+        '
+        Me.btnConfigurationsDeleteSelected.Location = New System.Drawing.Point(6, 81)
+        Me.btnConfigurationsDeleteSelected.Name = "btnConfigurationsDeleteSelected"
+        Me.btnConfigurationsDeleteSelected.Size = New System.Drawing.Size(207, 30)
+        Me.btnConfigurationsDeleteSelected.TabIndex = 4
+        Me.btnConfigurationsDeleteSelected.TabStop = False
+        Me.btnConfigurationsDeleteSelected.Text = "Delete selected"
+        Me.btnConfigurationsDeleteSelected.UseVisualStyleBackColor = True
+        '
+        'btnConfigurationsNewOne
+        '
+        Me.btnConfigurationsNewOne.Location = New System.Drawing.Point(6, 19)
+        Me.btnConfigurationsNewOne.Name = "btnConfigurationsNewOne"
+        Me.btnConfigurationsNewOne.Size = New System.Drawing.Size(207, 30)
+        Me.btnConfigurationsNewOne.TabIndex = 3
+        Me.btnConfigurationsNewOne.TabStop = False
+        Me.btnConfigurationsNewOne.Text = "New one"
+        Me.btnConfigurationsNewOne.UseVisualStyleBackColor = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(6, 9)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(112, 14)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "List of images:"
+        '
         'Diary
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
@@ -215,6 +380,13 @@ Partial Class Diary
         CType(Me.dgvMyDays, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabNewDay.ResumeLayout(False)
         Me.tabNewDay.PerformLayout()
+        Me.tabConfigurations.ResumeLayout(False)
+        Me.TabControl1.ResumeLayout(False)
+        Me.tabBackground.ResumeLayout(False)
+        Me.tabBackground.PerformLayout()
+        CType(Me.dgvConfigurationListImages, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        CType(Me.picBoxConfiguration, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -233,4 +405,17 @@ Partial Class Diary
     Friend WithEvents code As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents data As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents content As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents tabConfigurations As System.Windows.Forms.TabPage
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents dgvConfigurationListImages As System.Windows.Forms.DataGridView
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents picBoxConfiguration As System.Windows.Forms.PictureBox
+    Friend WithEvents btnConfigurationsNewOne As System.Windows.Forms.Button
+    Friend WithEvents btnConfigurationsDeleteSelected As System.Windows.Forms.Button
+    Friend WithEvents btnConfigurationSetCurrent As System.Windows.Forms.Button
+    Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
+    Friend WithEvents tabBackground As System.Windows.Forms.TabPage
+    Friend WithEvents btnConfigurationSaveInBank As System.Windows.Forms.Button
+    Friend WithEvents id As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents imageName As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class
