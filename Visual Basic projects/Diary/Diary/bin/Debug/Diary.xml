@@ -6,7 +6,12 @@ Diary
 </name>
 </assembly>
 <members>
-<member name="P:Diary.My.Resources.Resources.ResourceManager">
+<member name="T:Diary.GlobalVariables">
+	<summary>
+ Global variables used a lot of times or just some
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Diary.My.Resources.Resources.ResourceManager">
 	<summary>
   Returns the cached ResourceManager instance used by this class.
 </summary>
@@ -57,6 +62,20 @@ Diary
 	<param name="bankColumns">String array of bank columns name</param>
 	<param name="tableToSelect">Table name</param>
 	<returns>DataTable object with the select</returns>
+</member><member name="M:Diary.MySQLConnection_Class.DeleteMySQL(System.String,System.String[],System.Object[])">
+	<summary>
+ Simple delete from MySQL database with where statements
+ </summary>
+	<param name="tableToDelete">Table to delete</param>
+	<param name="whereBankColumns">Where bank columns name</param>
+	<param name="whereItems">Where items term</param>
+	<returns>If deleted successfully, returns <c>True</c>, otherwise, returns <c>False</c></returns>
+	<remarks></remarks>
+</member><member name="T:Diary.MySQLConnection_Class">
+	<summary>
+ Class that can handle with some kinds of operations with MySQL database
+ </summary>
+	<remarks>Before use this class, you must have MySQL dll in your application library!</remarks>
 </member>
 </members>
 </doc>

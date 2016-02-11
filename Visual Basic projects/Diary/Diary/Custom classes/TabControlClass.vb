@@ -16,35 +16,34 @@
     End Sub
 
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
-        Dim B As New Bitmap(Width, Height)
-        Dim G As Graphics = Graphics.FromImage(B)
+        Dim b As New Bitmap(Width, Height)
+        Dim g As Graphics = Graphics.FromImage(b)
 
-        G.Clear(Color.Gainsboro)
+        g.Clear(Color.Gainsboro)
 
         For i = 0 To TabCount - 1
             Dim TabRectangle As Rectangle = GetTabRect(i)
 
             If i = SelectedIndex Then
                 ' Tab is selected
-                G.FillRectangle(Brushes.DarkGray, TabRectangle)
+                g.FillRectangle(Brushes.DarkGray, TabRectangle)
             Else
                 ' Tab is not selected
-                G.FillRectangle(Brushes.Gray, TabRectangle)
+                g.FillRectangle(Brushes.Gray, TabRectangle)
             End If
 
             If i = 0 Then
                 Using ft As Font = utility.CreateFont("Consolas", 15, True, False, False)
-                    G.DrawString(TabPages(i).Text, ft, Brushes.White, TabRectangle, New StringFormat With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
+                    g.DrawString(TabPages(i).Text, ft, Brushes.White, TabRectangle, New StringFormat With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
                 End Using
             Else
-                G.DrawString(TabPages(i).Text, Font, Brushes.White, TabRectangle, New StringFormat With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
+                g.DrawString(TabPages(i).Text, Font, Brushes.White, TabRectangle, New StringFormat With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
             End If
         Next
 
-        e.Graphics.DrawImage(B.Clone, 0, 0)
-        G.Dispose() : B.Dispose()
+        e.Graphics.DrawImage(b.Clone, 0, 0)
+        g.Dispose() : b.Dispose()
         MyBase.OnPaint(e)
-
     End Sub
 
 End Class

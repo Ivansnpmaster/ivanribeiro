@@ -22,6 +22,7 @@ Partial Class Diary
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Diary))
         Me.tabControl = New TabControlClass()
         Me.tabMain = New System.Windows.Forms.TabPage()
         Me.tabMyDays = New System.Windows.Forms.TabPage()
@@ -37,7 +38,7 @@ Partial Class Diary
         Me.dtpDayNewDay = New System.Windows.Forms.DateTimePicker()
         Me.lblDayNewDay = New System.Windows.Forms.Label()
         Me.tabConfigurations = New System.Windows.Forms.TabPage()
-        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.tabControlConfiguration = New System.Windows.Forms.TabControl()
         Me.tabBackground = New System.Windows.Forms.TabPage()
         Me.dgvConfigurationListImages = New System.Windows.Forms.DataGridView()
         Me.id = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -54,7 +55,7 @@ Partial Class Diary
         CType(Me.dgvMyDays, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabNewDay.SuspendLayout()
         Me.tabConfigurations.SuspendLayout()
-        Me.TabControl1.SuspendLayout()
+        Me.tabControlConfiguration.SuspendLayout()
         Me.tabBackground.SuspendLayout()
         CType(Me.dgvConfigurationListImages, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -81,16 +82,15 @@ Partial Class Diary
         '
         'tabMain
         '
+        Me.tabMain.BackColor = System.Drawing.Color.Transparent
         Me.tabMain.BackgroundImage = Global.Diary.My.Resources.Resources.imgDiary
-        Me.tabMain.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.tabMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tabMain.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.tabMain.Location = New System.Drawing.Point(124, 4)
         Me.tabMain.Name = "tabMain"
         Me.tabMain.Padding = New System.Windows.Forms.Padding(3)
         Me.tabMain.Size = New System.Drawing.Size(388, 402)
         Me.tabMain.TabIndex = 0
         Me.tabMain.Text = "Main"
-        Me.tabMain.UseVisualStyleBackColor = True
         '
         'tabMyDays
         '
@@ -220,7 +220,7 @@ Partial Class Diary
         '
         'tabConfigurations
         '
-        Me.tabConfigurations.Controls.Add(Me.TabControl1)
+        Me.tabConfigurations.Controls.Add(Me.tabControlConfiguration)
         Me.tabConfigurations.Location = New System.Drawing.Point(124, 4)
         Me.tabConfigurations.Name = "tabConfigurations"
         Me.tabConfigurations.Size = New System.Drawing.Size(388, 402)
@@ -228,15 +228,15 @@ Partial Class Diary
         Me.tabConfigurations.Text = "Configurations"
         Me.tabConfigurations.UseVisualStyleBackColor = True
         '
-        'TabControl1
+        'tabControlConfiguration
         '
-        Me.TabControl1.Controls.Add(Me.tabBackground)
-        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl1.Location = New System.Drawing.Point(0, 0)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(388, 402)
-        Me.TabControl1.TabIndex = 6
+        Me.tabControlConfiguration.Controls.Add(Me.tabBackground)
+        Me.tabControlConfiguration.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tabControlConfiguration.Location = New System.Drawing.Point(0, 0)
+        Me.tabControlConfiguration.Name = "tabControlConfiguration"
+        Me.tabControlConfiguration.SelectedIndex = 0
+        Me.tabControlConfiguration.Size = New System.Drawing.Size(388, 402)
+        Me.tabControlConfiguration.TabIndex = 6
         '
         'tabBackground
         '
@@ -371,6 +371,7 @@ Partial Class Diary
         Me.Controls.Add(Me.tabControl)
         Me.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Diary"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Diary"
@@ -381,7 +382,7 @@ Partial Class Diary
         Me.tabNewDay.ResumeLayout(False)
         Me.tabNewDay.PerformLayout()
         Me.tabConfigurations.ResumeLayout(False)
-        Me.TabControl1.ResumeLayout(False)
+        Me.tabControlConfiguration.ResumeLayout(False)
         Me.tabBackground.ResumeLayout(False)
         Me.tabBackground.PerformLayout()
         CType(Me.dgvConfigurationListImages, System.ComponentModel.ISupportInitialize).EndInit()
@@ -413,7 +414,7 @@ Partial Class Diary
     Friend WithEvents btnConfigurationsNewOne As System.Windows.Forms.Button
     Friend WithEvents btnConfigurationsDeleteSelected As System.Windows.Forms.Button
     Friend WithEvents btnConfigurationSetCurrent As System.Windows.Forms.Button
-    Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
+    Friend WithEvents tabControlConfiguration As System.Windows.Forms.TabControl
     Friend WithEvents tabBackground As System.Windows.Forms.TabPage
     Friend WithEvents btnConfigurationSaveInBank As System.Windows.Forms.Button
     Friend WithEvents id As System.Windows.Forms.DataGridViewTextBoxColumn

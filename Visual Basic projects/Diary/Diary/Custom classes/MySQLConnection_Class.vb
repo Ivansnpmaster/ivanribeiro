@@ -1,10 +1,12 @@
 ﻿Imports MySql.Data.MySqlClient
 
+''' <summary>
+''' Class that can handle with some kinds of operations with MySQL database
+''' </summary>
+''' <remarks>Before use this class, you must have MySQL dll in your application library!</remarks>
 Public Class MySQLConnection_Class
 
     Dim utility As New Utility
-
-    Public stringMySQLConnection As String = "server =localhost; user id =root; password =; database =diaryDB;"
 
     Public Function MySQLConnection() As MySqlConnection
         Return New MySqlConnection(stringMySQLConnection)
@@ -55,7 +57,7 @@ Public Class MySQLConnection_Class
                 Return True
 
             Catch ex As Exception
-                MessageBox.Show("Error: " & ex.Message + vbNewLine + insertString, programName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show("Error: " + ex.Message + vbNewLine + insertString, programName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Finally
                 con.Close()
             End Try
@@ -289,13 +291,65 @@ Public Class MySQLConnection_Class
                 End If
 
             Catch ex As Exception
-                MessageBox.Show("Error: " & ex.Message, programName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show("Error: " + ex.Message, programName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Finally
                 conn.Close()
             End Try
 
             Return False
         End Using
+    End Function
+
+    ''' <summary>
+    ''' Simple delete from MySQL database with where statements
+    ''' </summary>
+    ''' <param name="tableToDelete">Table to delete</param>
+    ''' <param name="whereBankColumns">Where bank columns name</param>
+    ''' <param name="whereItems">Where items term</param>
+    ''' <returns>If deleted successfully, returns <c>True</c>, otherwise, returns <c>False</c></returns>
+    ''' <remarks></remarks>
+    Public Function DeleteMySQL(ByVal tableToDelete As String, ByVal whereBankColumns() As String, ByVal whereItems() As Object)
+
+        Dim deleteString As String = String.Format("DELETE FROM {0} WHERE ", tableToDelete)
+        Dim shift2(whereItems.Length - 1) As String
+
+        For i As Integer = 0 To shift2.Length - 1 Step 1
+            shift2(i) = "@" + whereBankColumns(i)
+        Next
+
+        For j As Integer = 0 To whereBankColumns.Length - 1 Step 1
+
+            deleteString += String.Format("{0}={1}", whereBankColumns(j), shift2(j))
+
+            If Not (utility.IsLastElement(whereBankColumns(j), whereBankColumns)) Then
+                deleteString += " AND "
+            End If
+        Next
+
+        Using con As MySqlConnection = MySQLConnection()
+            Try
+                con.Open()
+                Dim cmd As MySqlCommand = New MySqlCommand(deleteString, con)
+
+                For i As Integer = 0 To whereItems.Length - 1 Step 1
+                    cmd.Parameters.Add(New MySqlParameter(shift2(i), whereItems(i)))
+                Next
+
+                cmd.ExecuteNonQuery()
+                con.Close()
+
+                MessageBox.Show("Successfully deleted!", programName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return True
+
+            Catch ex As Exception
+                MessageBox.Show("Error: " + ex.Message + vbNewLine + deleteString, programName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Finally
+                con.Close()
+            End Try
+        End Using
+
+        Return False
+
     End Function
 
 End Class

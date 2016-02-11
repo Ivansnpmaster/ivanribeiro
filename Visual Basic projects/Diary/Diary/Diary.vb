@@ -3,19 +3,49 @@
     Dim utility As New Utility
 
     Private Sub Diary_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LoadCurrentBackground()
         LoadDaysAtDatagridView()
     End Sub
 
-#Region "My days"
+    Private Sub LoadCurrentBackground()
+
+        Dim bankColumns() As String = New String() {"image"}
+        Dim whereBankColumns() As String = New String() {"current"}
+        Dim whereItems() As Object = New Object() {1}
+
+        Dim dt As DataTable = connection.SelectMySQL(bankColumns, "background", whereBankColumns, whereItems)
+
+        If (dt.Rows.Count > 0) Then
+            tabControl.TabPages(0).BackgroundImage = utility.ByteToImage(dt.Rows(0).Item(0))
+        Else
+            tabControl.TabPages(0).BackgroundImage = My.Resources.imgDiary
+        End If
+
+    End Sub
+
+    Private Sub tabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tabControl.SelectedIndexChanged
+
+        Select Case tabControl.SelectedIndex
+            Case 1
+                If (modified) Then
+                    LoadDaysAtDatagridView()
+                    modified = False
+                End If
+            Case 3
+                If (mustLoadImages) Then
+                    LoadImages()
+                End If
+        End Select
+
+    End Sub
+
+#Region "Tab - My days"
 
     Private Sub LoadDaysAtDatagridView()
 
-        Dim bankColumns(2) As String
-        bankColumns(0) = "code"
-        bankColumns(1) = "date"
-        bankColumns(2) = "content"
+        Dim bankColumns() As String = New String() {"code", "date", "content"}
 
-        Dim days As DataTable = connection.SelectMySQL(bankColumns, table)
+        Dim days As DataTable = connection.SelectMySQL(bankColumns, "diary")
         Dim cont As Integer = utility.PopulateDatagridView(dgvMyDays, days, True)
 
         'Just for edit the data format
@@ -30,7 +60,10 @@
 
 #End Region
 
-#Region "New day"
+#Region "Tab - New day"
+
+    'Just to reload if some modification happened
+    Dim modified As Boolean = True
 
     Private Sub btnRecordNewDay_Click(sender As Object, e As EventArgs) Handles btnRecordNewDay.Click
 
@@ -49,21 +82,13 @@
 
         Dim dt As Date = CDate(dtpDayNewDay.Text.Trim)
 
-        Dim bankColumns(1) As String
-        bankColumns(0) = "date"
-        bankColumns(1) = "content"
-
-        Dim items(1) As Object
-        items(0) = dt
-        items(1) = txtContentNewDay.Text.Trim
+        Dim bankColumns() As String = New String() {"date", "content"}
+        Dim items() As Object = New Object() {dt, txtContentNewDay.Text.Trim}
 
         '---------- Check existance variables
 
-        Dim srtBankCheck(0) As String
-        srtBankCheck(0) = "date"
-
-        Dim srtItems(0) As Object
-        srtItems(0) = dt.ToString("yyyy-MM-dd")
+        Dim srtBankCheck() As String = New String() {"date"}
+        Dim srtItems() As Object = New Object() {dt.ToString("yyyy-MM-dd")}
 
         '---------- Function
 
@@ -90,56 +115,37 @@
         ' Select items from bank
         Dim dt As Date = CDate(dtpDayNewDay.Text.Trim)
 
-        Dim bankColumns(0) As String
-        bankColumns(0) = "content"
-
-        Dim whereBankColumns(0) As String
-        whereBankColumns(0) = "date"
-
-        Dim whereItems(0) As Object
-        whereItems(0) = dt.ToString("yyyy-MM-dd")
+        Dim bankColumns() As String = New String() {"content"}
+        Dim whereBankColumns() As String = New String() {"date"}
+        Dim whereItems() As Object = New Object() {dt.ToString("yyyy-MM-dd")}
 
         Dim dr As DataTable = connection.SelectMySQL(bankColumns, "diary", whereBankColumns, whereItems)
 
-        If dr.Rows.Count > 0 Then
+        If (dr.Rows.Count > 0) Then
             txtContentNewDay.Text = dr.Rows(0).Item("content").ToString
         Else
             txtContentNewDay.Clear()
         End If
+
     End Sub
 
 #End Region
 
-    'Just to reload if some modification happened
-    Dim modified As Boolean = True
+#Region "Tab - Configurations"
 
-    Private Sub tabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tabControl.SelectedIndexChanged
-
-        Select Case tabControl.SelectedIndex
-            Case 1
-                If modified Then
-                    LoadDaysAtDatagridView()
-                    modified = False
-                End If
-            Case 3
-                LoadImages()
-        End Select
-
-    End Sub
-
-#Region "Configurations"
+    'Just for reload the images if necessary
+    Dim mustLoadImages As Boolean = True
 
     Private Sub LoadImages()
-        Dim bankColumns() As String = New String() {"id", "imageName"}
-        Dim dt As DataTable = connection.SelectMySQL(bankColumns, "background")
 
-        If (dt.Rows.Count > 0) Then
-            Dim i As Integer = 0
-            While (i < dt.Rows.Count - 1)
-                utility.PopulateDatagridView(dgvConfigurationListImages, dt, True)
-                i += 1
-            End While
+        If (mustLoadImages) Then
+            Dim bankColumns() As String = New String() {"id", "imageName"}
+            Dim dt As DataTable = connection.SelectMySQL(bankColumns, "background")
+
+            If (dt.Rows.Count > 0) Then utility.PopulateDatagridView(dgvConfigurationListImages, dt, True)
+            mustLoadImages = False
         End If
+
     End Sub
 
     Private Sub btnConfigurationsNewOne_Click(sender As Object, e As EventArgs) Handles btnConfigurationsNewOne.Click
@@ -171,6 +177,8 @@
 
             connection.InsertToMySQL("background", bankColumns, itemsToInsert)
             selectedNewImage = False
+            mustLoadImages = True
+            LoadImages()
         End If
 
     End Sub
@@ -201,6 +209,32 @@
 
         connection.UpdateToMySQL("background", bankColumns, allItemsToUpdate, bankColumns, itemsToUpdate, False)
         connection.UpdateToMySQL("background", bankColumns, itemsToUpdate, whereBankColumns, whereItems, True)
+
+        LoadCurrentBackground()
+
+    End Sub
+
+    Private Sub btnConfigurationsDeleteSelected_Click(sender As Object, e As EventArgs) Handles btnConfigurationsDeleteSelected.Click
+
+        If (dgvConfigurationListImages.RowCount = 0) Then
+            MessageBox.Show("There's nothing to exclude!", programName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Return
+        ElseIf (dgvConfigurationListImages.RowCount = 1) Then
+            MessageBox.Show("Please, add a new one to exclude the selected image!", programName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+
+        Dim whereBankColumns() As String = New String() {"id"}
+        Dim whereItems() As Object = New Object() {dgvConfigurationListImages.CurrentRow.Cells(0).Value}
+
+        Dim deleted As Boolean = connection.DeleteMySQL("background", whereBankColumns, whereItems)
+
+        If (deleted) Then
+            mustLoadImages = True
+            LoadImages()
+            picBoxConfiguration.Image = Nothing
+            LoadCurrentBackground()
+        End If
 
     End Sub
 
