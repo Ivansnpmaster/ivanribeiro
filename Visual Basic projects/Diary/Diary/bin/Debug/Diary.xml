@@ -71,6 +71,14 @@ Diary
 	<param name="whereItems">Where items term</param>
 	<returns>If deleted successfully, returns <c>True</c>, otherwise, returns <c>False</c></returns>
 	<remarks></remarks>
+</member><member name="M:Diary.MySQLConnection_Class.ExecuteSQLCommand(System.String,System.String[],System.Object[])">
+	<summary>
+ Execute a SQL command
+ </summary>
+	<param name="sqlString">String command</param>
+	<param name="params">@ elements</param>
+	<param name="items">Items corresponding to @ elements</param>
+	<returns>Datatable</returns>
 </member><member name="T:Diary.MySQLConnection_Class">
 	<summary>
  Class that can handle with some kinds of operations with MySQL database

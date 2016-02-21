@@ -72,4 +72,28 @@
 
     End Function
 
+    Function StringColumnsConcat(ByVal columns As String()) As String
+
+        Dim result As String = ""
+
+        For i As Integer = 0 To columns.Length - 1
+            If (IsLastElement(columns(i), columns)) Then
+                result += columns(i)
+                Continue For
+            End If
+            result += columns(i) + ","
+        Next
+
+        Return result
+
+    End Function
+
+    Public Sub PrepareDatagridView(ByVal dataGridView As DataGridView, ByVal columns As String())
+        For i As Integer = 0 To columns.Length - 1
+            Dim newString As String = columns(i).Substring(columns(i).IndexOf(".") + 1)
+            dataGridView.Columns.Add(newString, StrConv(newString, VbStrConv.ProperCase))
+            dataGridView.Columns(i).Name = newString
+        Next
+    End Sub
+
 End Class

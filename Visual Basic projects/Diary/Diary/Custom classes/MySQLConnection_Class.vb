@@ -352,4 +352,42 @@ Public Class MySQLConnection_Class
 
     End Function
 
+    ''' <summary>
+    ''' Execute a SQL command
+    ''' </summary>
+    ''' <param name="sqlString">String command</param>
+    ''' <param name="params">@ elements</param>
+    ''' <param name="items">Items corresponding to @ elements</param>
+    ''' <returns>Datatable</returns>
+    Public Function ExecuteSQLCommand(ByVal sqlString As String, ByVal params() As String, ByVal items() As Object) As DataTable
+
+        Dim result As New DataTable
+
+        Using con As MySqlConnection = MySQLConnection()
+
+            Try
+                con.Open()
+                Dim cmd As MySqlCommand = New MySqlCommand(sqlString, con)
+
+                For i As Integer = 0 To params.Length - 1
+                    cmd.Parameters.Add(New MySqlParameter(params(i), items(i)))
+                Next
+
+                Dim da As New MySqlDataAdapter(cmd)
+
+                da.Fill(result)
+                con.Close()
+
+            Catch ex As Exception
+                MessageBox.Show(ex.Message + vbNewLine + sqlString)
+            Finally
+                con.Close()
+            End Try
+
+        End Using
+
+        Return result
+
+    End Function
+
 End Class
