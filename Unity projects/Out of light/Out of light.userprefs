@@ -1,0 +1,16 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\IO Files\Levels.xml">
+    <Files>
+      <File FileName="Assets\Scripts\LightManager.cs" Line="7" Column="17" />
+      <File FileName="Assets\Scripts\Controller.cs" Line="12" Column="2" />
+      <File FileName="Assets\Scripts\Utility.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelEditor.cs" Line="75" Column="3" />
+      <File FileName="Assets\Resources\IO Files\Levels.xml" Line="3" Column="15" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

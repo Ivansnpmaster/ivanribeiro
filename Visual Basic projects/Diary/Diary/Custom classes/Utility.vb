@@ -16,16 +16,11 @@
 
         Dim newFont As New Drawing.Font(fontName, fontSize, styles)
         Return newFont
-
     End Function
 
     Public Function IsLastElement(ByVal current As Object, ByVal array() As Object)
-
-        If (current = array(array.Length - 1)) Then
-            Return True
-        End If
+        If (current = array(array.Length - 1)) Then Return True
         Return False
-
     End Function
 
     Public Function PopulateDatagridView(ByVal grid As DataGridView, ByVal dataTable As DataTable, ByVal clearBefore As Boolean) As Integer
@@ -45,7 +40,6 @@
         End If
 
         Return i
-
     End Function
 
     Public Function ImageToByte(ByVal pictureBox As PictureBox) As Byte()
@@ -57,7 +51,6 @@
         memoryStream.Close()
 
         Return arrayImage
-
     End Function
 
     Public Function ByteToImage(ByVal imageBytes() As Byte) As Image
@@ -65,14 +58,14 @@
         Dim imageData As Byte() = DirectCast(imageBytes, Byte())
         Dim memoryStream As New IO.MemoryStream(imageData)
         Dim pictureBox As New PictureBox
+
         pictureBox.Image = Image.FromStream(memoryStream)
         memoryStream.Close()
 
         Return pictureBox.Image
-
     End Function
 
-    Function StringColumnsConcat(ByVal columns As String()) As String
+    Public Function StringColumnsConcat(ByVal columns As String()) As String
 
         Dim result As String = ""
 
@@ -85,7 +78,6 @@
         Next
 
         Return result
-
     End Function
 
     Public Sub PrepareDatagridView(ByVal dataGridView As DataGridView, ByVal columns As String())

@@ -1,0 +1,15 @@
+<levels>
+	<level>
+		<levelname>1</levelname>
+		<levelSizeX>6</levelSizeX>
+		<levelSizeY>6</levelSizeY>
+		<lightsout>
+			<light>0,0</light>
+			<light>0,1</light>
+			<light>1,0</light>
+			<light>4,5</light>
+			<light>5,4</light>
+			<light>5,5</light>
+		</lightsout>
+	</level>
+</levels>
