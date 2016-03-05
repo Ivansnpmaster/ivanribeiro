@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 public static class Utility
 {
-	public static List<Color> colors = new List<Color>() {
+	public static List<Color> colors = new List<Color>()
+	{
 		Color.black,
 		Color.white,
-		Color.grey,
 		Color.green,
 		Color.red,
 		Color.blue,

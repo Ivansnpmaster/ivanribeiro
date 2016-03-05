@@ -8,6 +8,7 @@ public class LightManager : MonoBehaviour
 
 	[HideInInspector] public Renderer rend;
 	[HideInInspector] public bool isOn = false;
+	[HideInInspector] public Vector3 worldPoint;
 	[HideInInspector] public int x;
 	[HideInInspector] public int y;
 
@@ -25,9 +26,10 @@ public class LightManager : MonoBehaviour
 		lightSource.position = (isOn)? lightSource.position - Vector3.forward / 4F : lightSource.position + Vector3.forward / 4F;
 	}
 
-	public void SetXY(int _x, int _y)
+	public void SetConf(int _x, int _y, Vector3 point)
 	{
 		x = _x;
 		y = _y;
+		worldPoint = point;
 	}
 }
