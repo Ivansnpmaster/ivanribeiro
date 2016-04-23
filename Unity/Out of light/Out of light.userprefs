@@ -1,0 +1,17 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MapGenerator.cs">
+    <Files>
+      <File FileName="Assets\Scripts\MapGenerator.cs" Line="84" Column="29" />
+      <File FileName="Assets\Scripts\PointOfLight.cs" Line="8" Column="2" />
+      <File FileName="Assets\Scripts\Utility.cs" Line="21" Column="3" />
+      <File FileName="Assets\Scripts\SaveAndLoad\LevelController.cs" Line="34" Column="55" />
+      <File FileName="Assets\Scripts\SaveAndLoad\Level.cs" Line="30" Column="2" />
+      <File FileName="Assets\Scripts\CameraAnimation.cs" Line="19" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
