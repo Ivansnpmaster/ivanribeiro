@@ -11,6 +11,8 @@ public class UIController : MonoBehaviour
 
 	private IEnumerator ChangeName(string name)
 	{
+		levelName.CrossFadeAlpha(1, 0, false);
+
 		float timeToSpawnOneLetter = .5F;
 		levelName.text = "";
 		
