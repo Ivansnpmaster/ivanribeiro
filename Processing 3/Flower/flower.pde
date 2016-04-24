@@ -20,8 +20,8 @@ void draw()
   stroke(c, 80, 80, 20); // color, saturation, brightness, alpha
   line(x0, y0, x1, y1);
 
-  a += 0.02;
-  b += 0.07;
+  a += 0.105; // 0.02
+  b += 0.102; // 0.07
   c += 1;
 
   if (c > 100) c = 0;
