@@ -3,14 +3,9 @@ using System.Collections.Generic;
 
 public class PlayerInput : MonoBehaviour
 {
-    MapGenerator mapGenerator;
+	public bool devMode;
 
-    void Awake()
-    {
-        mapGenerator = FindObjectOfType<MapGenerator>();
-    }
-
-    void Update()
+    private void Update()
     {
         TurnThemAll();
     }
@@ -26,12 +21,32 @@ public class PlayerInput : MonoBehaviour
             {
                 if (hit.collider.gameObject.name.Contains("Box"))
                 {
-                    List<Vector2> neighbors = mapGenerator.GetNeighbors(hit.point);
+					List<Vector2> neighbors = LevelController.instance.mapGenerator.GetNeighbors(hit.point);
 
                     for (int i = 0; i < neighbors.Count; i++)
-                        mapGenerator.TurnLight((int)neighbors[i].x, (int)neighbors[i].y);
+						LevelController.instance.mapGenerator.TurnLight((int)neighbors[i].x, (int)neighbors[i].y);
+
+					if(!devMode)
+						LevelController.instance.CheckLevelCompleted();
                 }
             }
         }
+
+		if(Application.isEditor)
+		{
+			DeleteAllLevelsCompleted();
+			GenerateLevel();
+		}
     }
+
+	private void DeleteAllLevelsCompleted()
+	{
+		if (Input.GetKeyDown(KeyCode.Return))
+			Utility.DeleteAllLevelKeys();
+	}
+	private void GenerateLevel()
+	{
+		if (Input.GetKeyDown(KeyCode.Space))
+			LevelController.instance.GenerateNextLevel();
+	}
 }

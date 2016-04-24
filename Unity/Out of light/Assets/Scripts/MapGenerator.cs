@@ -25,9 +25,9 @@ public class MapGenerator : MonoBehaviour
 
     public IEnumerator GenerateLevel(Level level)
     {
-        camAnim.StartCoroutine("Animate");
+		currentLevel = level;
 
-        currentLevel = level;
+		camAnim.StartCoroutine("Animate");
 
         if (GameObject.Find("Lights holder"))
             GameObject.Destroy(GameObject.Find("Lights holder"));
@@ -132,6 +132,24 @@ public class MapGenerator : MonoBehaviour
     {
         lightPoints[x, y].Turn();
     }
+
+	public bool CheckLevelCompleted()
+	{
+		int i = 0;
+
+		if(currentLevel == null)
+			Debug.Log("null");
+
+		for (int x = 0; x < currentLevel.x; x++)
+			for (int y = 0; y < currentLevel.y; y++)
+				if (lightPoints[x, y].isOn)
+					i++;
+
+		if (i == 0)
+			return true;
+
+		return false;
+	}
 
     #region Get the active lights on the scene
 

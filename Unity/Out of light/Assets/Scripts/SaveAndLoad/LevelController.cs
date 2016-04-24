@@ -1,34 +1,48 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class LevelController : MonoBehaviour
 {
     [Header("Scriptable object with levels")]
     public LevelHolder levelHolder;
 
-    MapGenerator mapGenerator;
+	UIController uiController;
+
+	public static LevelController instance;
+
+	[HideInInspector] public MapGenerator mapGenerator;
 
     private void Awake()
     {
+		instance = this;
         mapGenerator = FindObjectOfType<MapGenerator>();
+		uiController = FindObjectOfType<UIController>();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            GenerateNextLevel();
-    }
+	#region In game generating level
 
-    // Editor save level function
-    public void SaveLevel(Level current)
-    {
-        levelHolder.levels.Add(current);
-    }
+	// In game generate level i.e. Load a level
+	public void GenerateNextLevel()
+	{
+		Level level = levelHolder.GetLastIdUncompletedLevel();
+		
+		if(Application.loadedLevelName != "Level editor")
+		{
+			
+			uiController.ChangeLevelName(level.levelName);
+		}
+		
+		mapGenerator.StartCoroutine("GenerateLevel", level);
+	}
+	
+	public void CheckLevelCompleted()
+	{
+		if (mapGenerator.CheckLevelCompleted())
+		{
+			string lastLevel = levelHolder.GetLastIdUncompletedLevel().levelName;
+			Utility.SetKeyComplete(lastLevel.Substring(lastLevel.Length - 1, 1));
+			GenerateNextLevel();
+		}
+	}
 
-    // In game generate level i.e. Load a level
-    public void GenerateNextLevel()
-    {
-        Level level = levelHolder.GetLastUncompletedLevel();
-        mapGenerator.StartCoroutine("GenerateLevel", level);
-    }
+	#endregion
 }

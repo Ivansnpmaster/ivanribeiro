@@ -51,4 +51,40 @@ public static class Utility
 
         return activeIndexes;
     }
+
+	#region Playerprefs stuff
+
+	public static void DebugAllLevels()
+	{
+		int c = LevelController.instance.levelHolder.levels.Count;
+
+		for (int i = 0; i < c; i++)
+		{
+			if (PlayerPrefs.HasKey("Level " + (i + 1)))
+				Debug.Log("Level completo: " + PlayerPrefs.GetInt("Level " + (i + 1)));
+		}
+	}
+	
+	public static void SetKeyComplete(string name)
+	{
+		PlayerPrefs.SetInt("Level " + name, int.Parse(name) - 1);
+	}
+	
+	public static void DeleteAllLevelKeys()
+	{
+		int c = LevelController.instance.levelHolder.levels.Count;
+
+		for (int i = 0; i < c; i++)
+		{
+			if (PlayerPrefs.HasKey("Level " + (i + 1)))
+			{
+				PlayerPrefs.DeleteKey("Level " + (i + 1));
+				Debug.Log("Key deleted: " + "Level " + (i + 1));
+			}
+		}
+
+		Debug.Log("All level keys are gone!");
+	}
+
+	#endregion
 }
