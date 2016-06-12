@@ -68,6 +68,7 @@ class Grid
         total = map(total, 0, 255, 0, 100);
 
         dots[i][j].Z(total);
+        dots[i][j].Show(min, max);
       }
     }
 
@@ -75,12 +76,6 @@ class Grid
     println(SEPARATOR);
     println("Image width: " + w + " - Image height: " + h);
     println("Image lenght: " + img.pixels.length);
-    println(SEPARATOR);
-    println("Start displaying");
-
-    ShowGrid(min, max);
-
-    println("Display done");
   }
 
   // Show the grid
