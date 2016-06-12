@@ -38,7 +38,22 @@ class Grid
         {
           for (int l = -cn; l <= cn; l++)
           {
-            int index = (i + k) + (j + l) * img.width;
+            int indexX = i + k;
+
+            if (indexX < 0)
+              indexX = w + k;
+            else if (indexX > w - 1)
+              indexX = k - 1;
+
+            int indexY = j + l;
+
+            if (indexY < 0)
+              indexY = h + l;
+            else if (indexY > h - 1)
+              indexY = l - 1;
+
+            int index = indexX + indexY * w;
+
             if (index > -1 && index < maxIndex)
               points.add(GetBrightness(img.pixels[index]));
           }
@@ -46,20 +61,21 @@ class Grid
 
         arraySize = points.size();
 
-        for (int l = 0; l < arraySize; l++)
-          total += points.get(l);
+        for (int a = 0; a < arraySize; a++)
+          total += points.get(a);
 
         total /= (float)arraySize;
         total = map(total, 0, 255, 0, 100);
 
-        dots[i][j].Z(total); 
+        dots[i][j].Z(total);
       }
     }
 
     println("Generating done");
+    println(SEPARATOR);
+    println("Image width: " + w + " - Image height: " + h);
     println("Image lenght: " + img.pixels.length);
     println(SEPARATOR);
-
     println("Start displaying");
 
     ShowGrid(min, max);
@@ -86,7 +102,7 @@ class Grid
 
     return (r + g + b) / 3.0;
   }
-  
+
   float GetDotHeight(int x, int y)
   {
     return dots[x][y].pos.z;

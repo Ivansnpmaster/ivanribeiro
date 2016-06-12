@@ -2,14 +2,6 @@ PeasyCam cam;
 ControlP5 c1;
 Slider slider;
 
-// Image name for saving purposes
-String[] imageName = { "Double Narcissus", "Beel", "Skull" };
-int indexImg = 0;
-
-final String SEPARATOR = "-----------------------------------";
-final String FOLDERPATH = "Images/";
-final int TEXTPADDING = 20;
-
 void UI()
 {
   textSize(15);
@@ -77,7 +69,7 @@ void keyPressed()
 void LoadImage(boolean reajust)
 {
   // Loading the database image
-  srcImage = loadImage(imageName[indexImg] + ".jpg");
+  srcImage = loadImage("Resources/" + imageName[indexImg] + ".jpg");
   // Getting the size of the image
   w = srcImage.width + srcImage.width / 2;
   h = srcImage.height;
@@ -95,7 +87,7 @@ void LoadImage(boolean reajust)
 void SaveImage()
 {
   println(SEPARATOR);
-  
+
   String name = imageName[indexImg] + " with coeficient of neighborhood = " + cn + ".png" ;
 
   int imgW = srcImage.width;

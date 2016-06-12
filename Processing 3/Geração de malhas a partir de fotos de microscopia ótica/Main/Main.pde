@@ -26,7 +26,7 @@ void setup()
 {
   LoadImage(false);
   UI();
-  
+
   background(191);
 }
 

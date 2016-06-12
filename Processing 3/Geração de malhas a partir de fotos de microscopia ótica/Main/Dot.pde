@@ -18,8 +18,8 @@ class Dot
   {
     if (pos.z >= min && pos.z <= max)
     {
-      color c = color(0, zColor, zColor);
-      //color c = color(0, 255, 255);
+      color c = color(zColor, 0, zColor);
+      //color c = color(0);
       stroke(c);
       point(pos.x, pos.y);//, pos.z);
     }

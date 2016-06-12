@@ -36,7 +36,6 @@ void draw()
     color c = img.pixels[xi + yi * w];
 
     fill(c);
-
     ellipse(xi, yi, 5, 5);
   }
 }
