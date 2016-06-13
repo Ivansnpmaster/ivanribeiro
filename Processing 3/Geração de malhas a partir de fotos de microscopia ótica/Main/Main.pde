@@ -1,3 +1,8 @@
+/*
+  Created by: Ivan Ribeiro
+  Date: 05/2016 - Current
+*/
+
 import peasy.*;
 import controlP5.*;
 
@@ -12,12 +17,12 @@ int w;
 int h;
 
 // Minimum height to show dots depth
-float minDelimiter = 30.0;
+float minDelimiter = 80.0;
 
 // Maximum height to show dots depth
 float maxDelimiter = 100.0;
 
-// Coeficient of neighborhood - Unprecision of the results (higher values makes the depth more like a plane)
+// Coeficient of neighborhood - Unprecision of the results (higher values makes the depth more like a plane and remove some lonely amount of pixels)
 int cn = 0;
 
 boolean hasGenerated = false;
