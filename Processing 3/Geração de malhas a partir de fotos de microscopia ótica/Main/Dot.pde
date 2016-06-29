@@ -27,6 +27,11 @@ class Dot
   {
     return zColor;
   }
+  
+  boolean IsVisible()
+  {
+    return visible;
+  }
 
   boolean Show(float min, float max)
   {

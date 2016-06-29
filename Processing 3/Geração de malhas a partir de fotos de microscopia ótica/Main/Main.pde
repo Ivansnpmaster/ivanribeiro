@@ -17,7 +17,7 @@ int w;
 int h;
 
 // Minimum height to show dots depth
-float minDelimiter = 80.0;
+float minDelimiter = 75.0;
 
 // Maximum height to show dots depth
 float maxDelimiter = 100.0;

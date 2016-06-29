@@ -1,6 +1,6 @@
 /*
   Created by: Ivan Ribeiro
-  Date: 05/2016 - Current
+  Date: 05/2016
 */
 
 class Agglomerate

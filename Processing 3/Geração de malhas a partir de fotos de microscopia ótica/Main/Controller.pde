@@ -83,7 +83,7 @@ public void LoadImage(boolean reajust)
   // Loading the database image
   srcImage = loadImage("Resources/" + imageName[indexImg] + ".jpg");
   //srcImage.resize(450, 450);
-  srcImage.resize(450, 0);
+  //srcImage.resize(450, 0);
 
   // Getting the size of the image to reajust the window size
   int wi = srcImage.width + floor(srcImage.width * 0.75);
