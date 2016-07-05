@@ -46,12 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AudioController.cs" />
      <Compile Include="Assets\Scripts\CameraAnimation.cs" />
      <Compile Include="Assets\Scripts\MapGenerator.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerInput.cs" />
      <Compile Include="Assets\Scripts\PointOfLight.cs" />
      <Compile Include="Assets\Scripts\SaveAndLoad\Level.cs" />
      <Compile Include="Assets\Scripts\SaveAndLoad\LevelController.cs" />
+     <Compile Include="Assets\Scripts\SoundLibrary.cs" />
      <Compile Include="Assets\Scripts\UIController.cs" />
      <Compile Include="Assets\Scripts\Utility.cs" />
  <Reference Include="UnityEngine.UI">

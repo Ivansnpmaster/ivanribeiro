@@ -6,23 +6,23 @@ public class CameraAnimation : MonoBehaviour
     public Transform toRotationAndPosition;
     public float timeToReach;
 
-    Quaternion oldQuat;
+    Quaternion oldRot;
     Vector3 oldPos;
 
     private void Awake()
     {
-        oldQuat = transform.rotation;
+        oldRot = transform.rotation;
         oldPos = transform.position;
     }
 
     public IEnumerator Animate()
     {
         transform.position = oldPos;
-        transform.rotation = oldQuat;
+        transform.rotation = oldRot;
 
         float currentTime = 0F;
 
-        while (currentTime < timeToReach)
+        while (currentTime <= timeToReach)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, toRotationAndPosition.rotation, timeToReach * Time.deltaTime);
             transform.position = Vector3.Lerp(transform.position, toRotationAndPosition.position, timeToReach * Time.deltaTime);

@@ -8,7 +8,12 @@ public class UIController : MonoBehaviour
 	float timeToFadeLevelName = 3F;
 
 	#region Change the level name and opacity
-
+	
+	public void ChangeLevelName(string name)
+	{
+		StartCoroutine("ChangeName", name);
+	}
+	
 	private IEnumerator ChangeName(string name)
 	{
 		levelName.CrossFadeAlpha(1, 0, false);
@@ -35,13 +40,8 @@ public class UIController : MonoBehaviour
 			levelName.text += name.Substring(i, 1);
 		}
 		
-		levelName.CrossFadeAlpha(0, timeToFadeLevelName, false); // Target, speed, should ignode Time.timeScale ?
+		levelName.CrossFadeAlpha(0, timeToFadeLevelName, false); // Target, speed, should ignore Time.timeScale ?
 	}
 	
-	public void ChangeLevelName(string name)
-	{
-		StartCoroutine("ChangeName", name);
-	}
-
 	#endregion
 }

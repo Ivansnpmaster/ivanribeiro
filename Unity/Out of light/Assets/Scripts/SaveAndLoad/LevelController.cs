@@ -5,7 +5,7 @@ public class LevelController : MonoBehaviour
     [Header("Scriptable object with levels")]
     public LevelHolder levelHolder;
 
-	UIController uiController;
+	//UIController uiController;
 
 	public static LevelController instance;
 
@@ -15,21 +15,31 @@ public class LevelController : MonoBehaviour
     {
 		instance = this;
         mapGenerator = FindObjectOfType<MapGenerator>();
-		uiController = FindObjectOfType<UIController>();
+		//uiController = FindObjectOfType<UIController>();
     }
 
 	#region In game generating level
 
 	// In game generate level i.e. Load a level
+	public void GenerateNextLevel(Level level)
+	{
+
+#if !UNITY_EDITOR
+		if(Application.loadedLevelName != "Level editor")
+			uiController.ChangeLevelName(level.levelName);
+#endif
+
+		mapGenerator.StartCoroutine("GenerateLevel", level);
+	}
+
 	public void GenerateNextLevel()
 	{
 		Level level = levelHolder.GetLastIdUncompletedLevel();
-		
+
+		#if !UNITY_EDITOR
 		if(Application.loadedLevelName != "Level editor")
-		{
-			
 			uiController.ChangeLevelName(level.levelName);
-		}
+		#endif
 		
 		mapGenerator.StartCoroutine("GenerateLevel", level);
 	}
@@ -38,9 +48,9 @@ public class LevelController : MonoBehaviour
 	{
 		if (mapGenerator.CheckLevelCompleted())
 		{
-			string lastLevel = levelHolder.GetLastIdUncompletedLevel().levelName;
-			Utility.SetKeyComplete(lastLevel.Substring(lastLevel.Length - 1, 1));
-			GenerateNextLevel();
+			Utility.SetKeyComplete(mapGenerator.CurrentLevel.levelName.Substring(mapGenerator.CurrentLevel.levelName.Length - 1, 1));
+			Level level = levelHolder.GetLastIdUncompletedLevel();
+			GenerateNextLevel(level);
 		}
 	}
 

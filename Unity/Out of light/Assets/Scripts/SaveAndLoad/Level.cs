@@ -7,16 +7,19 @@ public class Level
     public string levelName = "Level ";
     public int x;
     public int y;
-    public string activeLights = "";
+    public List<Vector2> activeLights;
+	public List<Vector2> staticBlocks;
 
     public float timeToSpawn;
+	public float timeBetweenEachTileToSpawn;
 
-    public Level(string _levelName, int _x, int _y, string _activeLights, float _timeToSpawn)
+	public Level(string _levelName, int _x, int _y, List<Vector2> _lights, List<Vector2> _staticBlocks, float _timeToSpawn)
     {
         levelName += _levelName;
         x = _x;
         y = _y;
-        activeLights = _activeLights;
+        activeLights = _lights;
+		staticBlocks = _staticBlocks;
         timeToSpawn = _timeToSpawn;
     }
 }

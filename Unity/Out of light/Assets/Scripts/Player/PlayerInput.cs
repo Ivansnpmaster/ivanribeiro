@@ -26,17 +26,18 @@ public class PlayerInput : MonoBehaviour
                     for (int i = 0; i < neighbors.Count; i++)
 						LevelController.instance.mapGenerator.TurnLight((int)neighbors[i].x, (int)neighbors[i].y);
 
+					#if UNITY_EDITOR
 					if(!devMode)
 						LevelController.instance.CheckLevelCompleted();
+					#endif
                 }
             }
         }
 
-		if(Application.isEditor)
-		{
-			DeleteAllLevelsCompleted();
-			GenerateLevel();
-		}
+		#if UNITY_EDITOR
+		DeleteAllLevelsCompleted();
+		GenerateLevel();
+		#endif
     }
 
 	private void DeleteAllLevelsCompleted()
@@ -44,6 +45,7 @@ public class PlayerInput : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Return))
 			Utility.DeleteAllLevelKeys();
 	}
+
 	private void GenerateLevel()
 	{
 		if (Input.GetKeyDown(KeyCode.Space))

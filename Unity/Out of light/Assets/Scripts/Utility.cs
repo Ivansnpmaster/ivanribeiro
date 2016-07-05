@@ -37,21 +37,6 @@ public static class Utility
         return newColor;
     }
 
-    public static List<Vector2> GetLightsFromSource(string activeLights)
-    {
-		List<Vector2> activeIndexes = new List<Vector2>();
-
-		if (activeLights.Length != 0)
-		{
-	        string[] str = activeLights.Split(',').Select(sValue => sValue.Trim()).ToArray();
-
-    	    for (int i = 0; i < str.Length; i += 2)
-        	    activeIndexes.Add(new Vector2(int.Parse(str[i]), int.Parse(str[i + 1])));
-		}
-
-        return activeIndexes;
-    }
-
 	#region Playerprefs stuff
 
 	public static void DebugAllLevels()
